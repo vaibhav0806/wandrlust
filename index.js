@@ -7,11 +7,11 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '/views'))
 
 app.get('/', (req, res) => {
-    res.send("HELLO");
+    res.render('home');
 });
 
-app.get('/home', (req, res) => {
-    res.render('home');
+app.get('/test', (req, res) => {
+    res.render('test');
 });
 
 app.listen(PORT, err => {
