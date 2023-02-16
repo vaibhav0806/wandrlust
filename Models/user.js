@@ -1,10 +1,13 @@
 const { mongoose } = require("mongoose");
+
 const {
   NAME_REQUIRED,
   PHONE_REQUIRED,
   EMAIL_REQUIRED,
   USERNAME_REQUIRED,
+  PASSWORD_REQUIRED
 } = require("../errors/mongoose");
+
 const {
   validatePhone,
   validateEmail,
@@ -21,25 +24,25 @@ const UserSchema = new mongoose.Schema(
       type: Number,
       required: [true, PHONE_REQUIRED],
       unique: true,
-      validate: {
-        validator: (e) => validatePhone(e),
-      },
+    //   validate: {
+    //     validator: (e) => validatePhone(e),
+    //   },
     },
     email: {
       type: String,
       required: [true, EMAIL_REQUIRED],
       unique: true,
-      validate: {
-        validator: (e) => validateEmail(e),
-      },
+    //   validate: {
+    //     validator: (e) => validateEmail(e),
+    //   },
     },
     username: {
       type: String,
       required: [true, USERNAME_REQUIRED],
       unique: true,
-      validate: {
-        validator: (e) => validateUserName(e),
-      },
+    //   validate: {
+    //     validator: (e) => validateUserName(e),
+    //   },
     },
     password: {
       type: String,
@@ -56,6 +59,4 @@ const UserSchema = new mongoose.Schema(
   }
 );
 
-const User = mongoose.model("User", UserSchema);
-
-module.export = { User };
+module.exports = mongoose.model("User", UserSchema);

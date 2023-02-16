@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const {DB_URL} = require("./config");
+const User = require("./Models/user");
 const {mongoose} = require("mongoose");
 
 const app = express();
@@ -19,6 +20,25 @@ const connect = () =>{
         console.log(err);
     }
 }
+// Testing Function
+// const createUser = async (req,res,next) =>{
+//     console.log("Working?");
+//     try{
+//         console.log("Inside");
+//         const testUser = await new User({
+//             name: "TestName",
+//             phone: 8473973458,
+//             email: "test@gmail.com",
+//             username: "flamekaiser",
+//             password: "test12345",
+//         }).save() 
+
+//         console.log(testUser);
+//     }
+//     catch(err){
+//         console.log(err);
+//     }
+// }
 
 mongoose.connection.on("disconnected", ()=>{
     console.log("Mongodb Disconnected.")
@@ -46,4 +66,6 @@ app.listen(PORT, err => {
     }
     connect();
     console.log('Listening on port ', PORT);
+    // createUser();
+    console.log("User Entry Added");
 })
