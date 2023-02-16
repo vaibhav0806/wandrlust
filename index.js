@@ -20,6 +20,10 @@ const connect = () =>{
     }
 }
 
+mongoose.connection.on("disconnected", ()=>{
+    console.log("Mongodb Disconnected.")
+})
+
 app.get('/', (req, res) => {
     res.render('home');
 });
@@ -37,6 +41,5 @@ app.listen(PORT, err => {
         console.log(err);
     }
     connect();
-    console.log(DB_URL);
     console.log('Listening on port ', PORT);
 })
