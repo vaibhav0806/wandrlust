@@ -6,7 +6,9 @@ const PostSchema = new mongoose.Schema(
       type: String,
       required: [true, IMAGE_REQUIRED],
     },
-    caption: String,
+    caption:{
+      type: String,
+    }, 
     date: {
       type: Date,
       default: Date.now,
