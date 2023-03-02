@@ -24,6 +24,7 @@ const connect = () => {
     console.log(err);
   }
 };
+
 // Testing Function
 // const createUser = async (req,res,next) =>{
 //     console.log("Working?");
