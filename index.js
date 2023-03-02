@@ -3,6 +3,8 @@ const path = require("path");
 const { DB_URL } = require("./config");
 const User = require("./Models/user");
 const { mongoose } = require("mongoose");
+var bodyParser = require('body-parser')
+const AuthRoute = require("./routes/auth");
 
 const app = express();
 
@@ -10,6 +12,8 @@ app.use(express.static(path.join(__dirname, "public")));
 var PORT = process.env.PORT || 6969;
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "/views"));
+app.use(express.json());
+app.use(bodyParser.json());
 
 const connect = () => {
   try {
@@ -68,6 +72,8 @@ app.get("/signup", (req, res) => {
 app.get("*", function (req, res) {
   res.render("error");
 });
+
+app.use("/signup",AuthRoute);
 
 app.listen(PORT, (err) => {
   if (err) {
