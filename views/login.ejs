@@ -31,17 +31,15 @@
                 <div class="card-header"> Log In </div>
                 <div class="card-body">
                     <h5 class="card-title">Welcome back!</h5>
-                    <form>
+                    <form id="loginForm" method="post" action="/login">
                         <div class="mb-3">
-                            <label for="exampleInputEmail1" class="form-label">Email address</label>
-                            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                            <label for="username" class="form-label">User Name</label>
+                            <input type="text" class="form-control" name="username" id="username" required minlength="3">
                         </div>
                         <div class="mb-3">
-                            <label for="exampleInputPassword1" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="exampleInputPassword1">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" name="password" class="form-control" minlength="8" id="password" required>
                         </div>
-    
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
                 </div>
@@ -49,5 +47,30 @@
             </div>
         </div>
     </div>
+    <script>
+        var form = document.getElementById("loginForm")
+
+        var formData = {
+            username: "",
+            password: ""  
+        }
+
+        const handleSubmit =async(event)=>{
+            event.preventDefault()
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+            formData.username = username;
+            formData.password = password;
+            console.log("FormData is as follows",formData);
+            const response = await fetch("/login",{
+                method: "POST",
+                headers: {
+                    "Content-type": "application/json"
+                },
+                body: JSON.stringify(formData)
+            })
+        }
+        form.addEventListener("submit", handleSubmit);
+    </script>
 </body>
 </html>

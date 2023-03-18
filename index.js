@@ -5,6 +5,7 @@ const User = require("./Models/user");
 const { mongoose } = require("mongoose");
 var bodyParser = require('body-parser')
 const AuthRoute = require("./routes/auth");
+const cookieParser = require("cookie-parser")
 
 const app = express();
 
@@ -14,6 +15,7 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "/views"));
 app.use(express.json());
 app.use(bodyParser.json());
+app.use(cookieParser())
 
 const connect = () => {
   try {
@@ -74,7 +76,7 @@ app.get("*", function (req, res) {
   res.render("error");
 });
 
-app.use("/signup",AuthRoute);
+app.use("/",AuthRoute);
 
 app.listen(PORT, (err) => {
   if (err) {

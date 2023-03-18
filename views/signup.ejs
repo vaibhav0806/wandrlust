@@ -26,30 +26,81 @@
                 <div class="card-header"> sign up </div>
                 <div class="card-body">
                     <h5 class="card-title">Get started Today!</h5>
-                    <form>
+                    <form id="signupForm">
                         <div class="mb-3">
-                            <label for="exampleInputUsername1" class="form-label">User Name</label>
-                            <input type="password" class="form-control" id="exampleInputUsername1">
+                            <label for="name" class="form-label">Name</label>
+                            <input class="form-control" id="name" required>
                         </div>
                         <div class="mb-3">
-                            <label for="exampleInputphone1" class="form-label">Phone Number</label>
-                            <input type="password" class="form-control" id="exampleInputPhone1">
+                            <label for="Username" class="form-label">User Name</label>
+                            <input class="form-control" id="username" required minlength="3">
                         </div>
                         <div class="mb-3">
-                            <label for="exampleInputEmail1" class="form-label">Email address</label>
-                            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                            <label for="phone" class="form-label">Phone Number</label>
+                            <input class="form-control" id="phone" minlength="10" maxlength="10" pattern="^[0-9]{10}$" required>
                         </div>
                         <div class="mb-3">
-                            <label for="exampleInputPassword1" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="exampleInputPassword1">
+                            <label for="email" class="form-label">Email address</label>
+                            <input type="email" class="form-control" id="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" minlength="8" id="password" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="age" class="form-label">Age</label>
+                            <input class="form-control" id="age" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="gender" class="form-label">Gender</label>
+                            <input class="form-control" id="gender">
                         </div>
     
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button value="Submit" form="signupForm" type="submit" class="btn btn-primary">Submit</button>
                     </form>
                 </div>
                 <div class="card-footer text-muted"> WandrLust* </div>
             </div>
         </div>
     </div>
+    <script>
+        var form = document.getElementById("signupForm");
+
+        var formData = {
+            name: "",
+            phone: 0,
+            email: "",
+            username: "",
+            password: "",
+            age: 0,
+            gender : ""
+        }
+        const handleSubmit =async(event)=>{
+            event.preventDefault()
+            var name = document.getElementById("name").value;
+            var phone = document.getElementById("phone").value;
+            var email = document.getElementById("email").value;
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+            var age = document.getElementById("age").value;
+            var gender = document.getElementById("gender").value;
+            formData.name = name;
+            formData.phone = phone;
+            formData.email = email;
+            formData.username = username;
+            formData.password = password;
+            formData.age = age;
+            formData.gender = gender;
+            console.log("FormData is as follows",formData);
+            const response = await fetch("/signup",{
+                method: "POST",
+                headers: {
+                    "Content-type": "application/json"
+                },
+                body: JSON.stringify(formData)
+            })
+        }
+        form.addEventListener("submit", handleSubmit);
+    </script>
 </body>
 </html>
