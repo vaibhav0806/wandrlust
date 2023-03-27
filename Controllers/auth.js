@@ -1,36 +1,35 @@
 const User = require("../Models/user");
-const  bcrypt  = require("bcrypt");
-const jwt  = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 const createError = require("http-errors");
+const session = require("../Session/session");
 
 const register = async (req, res, next) => {
-  console.log(req.body);
   try {
     const saltRounds = 10;
-    bcrypt.genSalt(saltRounds, (err,salt) => {
-      bcrypt.hash(req.body.password,salt,async(err,hash)=>{
-        console.log("Hash value: ",hash);
+    bcrypt.genSalt(saltRounds, (err, salt) => {
+      bcrypt.hash(req.body.password, salt, async (err, hash) => {
         const newUser = await new User({
           name: req.body.name,
-          phone: req.body.phone,
+          phone: req.body.phonenumber,
           email: req.body.email,
           username: req.body.username,
           password: hash,
           age: req.body.age,
-          gender: req.body.gender ? (req.body.gender) : "",
+          gender: req.body.gender ? req.body.gender : "",
         });
         await newUser.save();
-      })
-    })
-    console.log(window.location);
+        res.redirect("/login");
+      });
+    });
   } catch (err) {
-    next(err);
+    console.log(err);
+    res.send({ message: `Error ${err}` });
   }
 };
 
 const login = async (req, res, next) => {
   try {
-    console.log(req.body);
     const user = await User.findOne({
       username: req.body.username,
     });
@@ -41,16 +40,31 @@ const login = async (req, res, next) => {
       req.body.password,
       user.password
     );
-    console.log(isPasswordCorrect);
+
     if (!isPasswordCorrect) {
       return next(createError(400, "Wrong Password! or Username"));
     }
-    console.log(user._doc);
+
     const { password, _id, ...otherDetails } = user._doc;
-    console.log(user._id);
-    const token = jwt.sign({id: user._id}, process.env.JWT_SECRET_KEY, {expiresIn: '24h'})
-    res.cookie("access_token", token, {httpOnly: true}).status(200).json({...otherDetails})
-    console.log("Login SuccessFull");
+
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET_KEY, {
+      expiresIn: "24h",
+    });
+    res
+      .cookie("accessToken", token, {
+        httpOnly: true,
+        expires: new Date(Date.now() + 1000 * 60 * 60 * 24),
+      })
+      .status(200);
+
+    session.name = user.name;
+    session.isLoggedIn = true;
+    session.phonenumber = user.phone;
+    session.email = user.email;
+    session.username = user.username;
+    session.age = user.age;
+    session.gender = user.gender;
+    res.redirect("/");
   } catch (err) {
     next(err);
   }
