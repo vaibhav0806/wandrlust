@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post Image | Wandrlust</title>
+    <link rel="stylesheet" href="/PageCss/body.css">
+    <link href="/PageCss/faq.css" rel="stylesheet">
+    <link href="/PageCss/post.css" rel="stylesheet">
+</head>
+
+<body>
+    <%- include('partials/navbar.ejs', { name: name, isLoggedIn: isLoggedIn, email: email}); %>
+        <div class="container" style="display: flex; flex-direction: column; margin-top: 2rem; gap: 1rem;">
+            <h1>Upload Image</h1>
+            <div style="margin-left: 30rem; display: flex; flex-direction: column;">
+                <canvas width="500" height="500" id="canv1" style="border: 1px solid black;"></canvas>
+                <div style="margin-top: 1rem;">
+                    <p>
+                        Filename:
+                        <input type="file" multiple="false" accept="image/*" id=finput onchange={upload()}>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <section class="h-100 gradient-custom-2">
+            <div class="container py-5 h-100" >
+                <div class="row d-flex justify-content-center align-items-center h-100">
+                    <div class="col col-lg-9 col-xl-7">
+                        <div class="card">
+                            <div class="card-body p-4 text-black">
+                                <div class="d-flex justify-content-between align-items-center mb-4">
+                                    <p class="lead fw-normal mb-0">Your photos</p>
+                                </div>
+                                <div class="row g-2">
+                                    <div class="col mb-2">
+                                        <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(112).webp"
+                                            alt="image 1" class="w-100 rounded-3">
+                                    </div>
+                                    <div class="col mb-2">
+                                        <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(107).webp"
+                                            alt="image 1" class="w-100 rounded-3">
+                                    </div>
+                                </div>
+                                <div class="row g-2">
+                                    <div class="col">
+                                        <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(108).webp"
+                                            alt="image 1" class="w-100 rounded-3">
+                                    </div>
+                                    <div class="col">
+                                        <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(114).webp"
+                                            alt="image 1" class="w-100 rounded-3">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <script async="" src="https://www.dukelearntoprogram.com/course1/common/js/image/SimpleImage.js"></script>
+        <script>
+            function upload() {
+                var imgcanvas = document.getElementById("canv1");
+                var fileinput = document.getElementById("finput");
+                console.log(fileinput);
+                var image = new SimpleImage(fileinput);
+                console.log(image);
+                image.drawTo(imgcanvas);
+            }
+        </script>
+        <%- include('partials/footer') %>
+</body>
+
+</html>
