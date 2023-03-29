@@ -1,48 +1,48 @@
 body {
-    background: #e0f7fa;
+  background: #e0f7fa;
 }
 
 .error {
-    background-color: #e57373;
-    color: #fff;
+  background-color: #e57373;
+  color: #fff;
 }
 
 .success {
-    background-color: #4db6ac;
-    color: #fff;
+  background-color: #4db6ac;
+  color: #fff;
 }
 
 /*#submit {
-    margin-top: 5px;
+  margin-top: 5px;
 }*/
 
 #message {
-    text-align: center;
-    padding-top: 3px;
-    vertical-align: middle;
+  text-align: center;
+  padding-top: 3px;
+  vertical-align: middle;
 }
 
 input {
-    padding: 10px 5px;
-    font-size: 1em;
+  padding: 10px 5px;
+  font-size: 1em;
 }
 
 #submit-button {
-    background-color: #211d1e;
-    color: #fff;
+  background-color: #211d1e;
+  color: #fff;
 }
 
 i {
-    color: rgb(27, 25, 25);
+  color: rgb(27, 25, 25);
 }
 
 h2 {
-    text-align: center;
-    margin: 40px;
-    font-family: 'Abril Fatface', cursive;
-    color: #171414;
+  text-align: center;
+  margin: 40px;
+  font-family: "Abril Fatface", cursive;
+  color: #171414;
 }
 
 .cost {
-    color: #b71c1c;
+  color: #b71c1c;
 }
