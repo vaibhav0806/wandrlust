@@ -64,6 +64,7 @@ const login = async (req, res, next) => {
     session.username = user.username;
     session.age = user.age;
     session.gender = user.gender;
+    session._id = user._id;
     res.redirect("/");
   } catch (err) {
     next(err);
