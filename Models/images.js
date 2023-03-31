@@ -3,18 +3,21 @@ const { mongoose } = require("mongoose");
 const PostSchema = new mongoose.Schema(
   {
     image: {
-      type: [String],
-      required: [true, IMAGE_REQUIRED],
+      data: Buffer,
+      contentType: String,
     },
-    caption:{
+    caption: {
       type: String,
-    }, 
+    },
+    description: {
+      type: String,
+    },
     date: {
       type: Date,
       default: Date.now,
     },
     author: {
-      type: Schema.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       ref: "User",
     },
   },
@@ -23,5 +26,4 @@ const PostSchema = new mongoose.Schema(
   }
 );
 
-const Post = mongoose.model("Post", PostSchema);
-module.exports = { Post };
+module.exports = mongoose.model("Post", PostSchema);
