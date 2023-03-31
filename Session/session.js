@@ -6,7 +6,7 @@ const session = {
   username: "",
   age: 0,
   gender: "",
-};  
+  _id: "",
+};
 
-module.exports = session
-
+module.exports = session;
