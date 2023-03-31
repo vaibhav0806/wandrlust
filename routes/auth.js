@@ -4,6 +4,23 @@ const { auth } = require("../middlewares/auth");
 const router = Router();
 const session = require("../Session/session");
 const nodemailer = require("nodemailer");
+const multer = require("multer");
+const ImageModel = require("../Models/images");
+const path = require("path");
+const fs = require("fs");
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, path.join(__dirname + "/uploads/"));
+  },
+  filename: function (req, file, cb) {
+    cb(
+      null,
+      file.fieldname + "-" + Date.now() + path.extname(file.originalname)
+    );
+  },
+});
+const upload = multer({ storage: storage });
 
 router.post("/signup", register);
 router.post("/signin", login);
@@ -101,6 +118,26 @@ router.post("/sendMail", (req, res) => {
     }
   });
   res.redirect("/contact");
+});
+
+router.post("/uploadPhoto", upload.single("myImage"), (req, res) => {
+  const obj = {
+    img: {
+      data: fs.readFileSync(
+        path.join(__dirname + "/uploads/" + req.file.filename)
+      ),
+      contentType: "image/*",
+    },
+  };
+  const newImage = new ImageModel({
+    image: obj.img,
+    caption: req.body.caption,
+    description: req.body.description,
+    author: session._id,
+  });
+  newImage.save((err) => {
+    err ? console.log(err) : res.redirect("/feed");
+  });
 });
 
 router.get("/profile", (req, res) => {
