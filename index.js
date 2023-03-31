@@ -6,7 +6,6 @@ const { mongoose } = require("mongoose");
 var bodyParser = require("body-parser");
 const AuthRoute = require("./routes/auth");
 const cookieParser = require("cookie-parser");
-
 const app = express();
 
 app.use(express.static(path.join(__dirname, "public")));
