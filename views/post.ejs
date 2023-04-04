@@ -28,7 +28,7 @@
                             Caption: <input type="text" name="caption" id="caption" class="input-field" required>
                         </p>
                         <p>
-                            description: <input type="text" name="description" id="description" class="input-field"
+                            Description: <input type="text" name="description" id="description" class="input-field"
                                 required>
                         </p>
                         <input class="btn-dark btn-outline-light" type="submit" value="Upload Photo" />
@@ -45,26 +45,17 @@
                                 <div class="d-flex justify-content-between align-items-center mb-4">
                                     <p class="lead fw-normal mb-0">Your photos</p>
                                 </div>
-                                <div class="row g-2">
-                                    <div class="col mb-2">
-                                        <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(112).webp"
-                                            alt="image 1" class="w-100 rounded-3">
+                                <% images.forEach(function (image){ %>
+                                    <div class="row g-2">
+
+                                        <div class="col">
+                                            <!-- <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(108).webp"
+                                                alt="image 1" class="w-100 rounded-3"> -->
+                                            <img class="w-100 rounded-3" src="data:image/<%=image.image.contentType%>;base64,
+                                            <%=image.image.data.toString('base64')%>">
+                                        </div>
                                     </div>
-                                    <div class="col mb-2">
-                                        <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(107).webp"
-                                            alt="image 1" class="w-100 rounded-3">
-                                    </div>
-                                </div>
-                                <div class="row g-2">
-                                    <div class="col">
-                                        <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(108).webp"
-                                            alt="image 1" class="w-100 rounded-3">
-                                    </div>
-                                    <div class="col">
-                                        <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(114).webp"
-                                            alt="image 1" class="w-100 rounded-3">
-                                    </div>
-                                </div>
+                                    <% }); %>
                             </div>
                         </div>
                     </div>
