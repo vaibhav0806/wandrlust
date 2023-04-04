@@ -6,14 +6,8 @@ const {
   EMAIL_REQUIRED,
   USERNAME_REQUIRED,
   PASSWORD_REQUIRED,
-  AGE_REQUIRED
+  AGE_REQUIRED,
 } = require("../errors/mongoose");
-
-const {
-  validatePhone,
-  validateEmail,
-  validateUserName,
-} = require("../errors/validate");
 
 const UserSchema = new mongoose.Schema(
   {
@@ -25,38 +19,29 @@ const UserSchema = new mongoose.Schema(
       type: Number,
       required: [true, PHONE_REQUIRED],
       unique: true,
-      // validate: {
-      //   validator: (phone) => /^(?:(?:\+|0{0,2})91(\s*[\ -]\s*)?|[0]?)?[789]\d{9}|(\d[ -]?){10}\d$/.test(phone),
-      // },
     },
     email: {
       type: String,
       required: [true, EMAIL_REQUIRED],
       unique: true,
-      // validate: {
-      //   validator: (email) => /^[a-z0-9_\.-]+\@[a-z0-9\-]+\.[a-z]+$/.test(email.toLowerCase()),
-      // },
     },
     username: {
       type: String,
       required: [true, USERNAME_REQUIRED],
       unique: true,
-      // validate: {
-      //   validator: (username) => /^[a-zA-Z0-9_-]{6,16}$/.test(username),
-      // },
     },
     password: {
       type: String,
       required: [true, PASSWORD_REQUIRED],
-      unique: false
+      unique: false,
     },
     age: {
       type: Number,
-      required: [true, AGE_REQUIRED]
+      required: [true, AGE_REQUIRED],
     },
-    gender:{
+    gender: {
       type: String,
-      required: false
+      required: false,
     },
     createdAt: {
       type: Date,
