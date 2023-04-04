@@ -48,7 +48,14 @@ router.get("/about", (req, res) => {
 });
 
 router.get("/test", (req, res) => {
-  res.render("test");
+  res.render("test", {
+    name: session.name.substring(0, session.name.indexOf(" "))
+      ? session.name.substring(0, session.name.indexOf(" "))
+      : session.name,
+    isLoggedIn: session.isLoggedIn,
+    email: session.email,
+    username: session.username,
+  });
 });
 
 router.get("/login", (req, res) => {
@@ -133,6 +140,7 @@ router.post("/uploadPhoto", upload.single("myImage"), (req, res) => {
     image: obj.img,
     caption: req.body.caption,
     description: req.body.description,
+    likes: 0,
     author: session._id,
   });
   newImage.save((err) => {
@@ -140,41 +148,27 @@ router.post("/uploadPhoto", upload.single("myImage"), (req, res) => {
   });
 });
 
-router.get("/profile", (req, res) => {
-  if (session.isLoggedIn) {
-    res.render("profile", {
-      name: session.name,
-      isLoggedIn: session.isLoggedIn,
-      email: session.email,
-      username: session.username,
-      phonenumber: session.phonenumber,
-      age: session.age,
-    });
-  } else {
-    res.render("home", {
-      name: session.name.substring(0, session.name.indexOf(" "))
-        ? session.name.substring(0, session.name.indexOf(" "))
-        : session.name,
-      isLoggedIn: session.isLoggedIn,
-      email: session.email,
-      username: session.username,
-    });
-  }
-});
-
 router.get("/post", (req, res) => {
-  if (session.isLoggedIn) {
-    res.render("post", {
-      name: session.name.substring(0, session.name.indexOf(" "))
-        ? session.name.substring(0, session.name.indexOf(" "))
-        : session.name,
-      isLoggedIn: session.isLoggedIn,
-      email: session.email,
-      username: session.username,
-    });
-  } else {
-    res.redirect("/");
-  }
+  ImageModel.find({ author: session._id }, (err, images) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send("An error occurred", err);
+    } else {
+      if (session.isLoggedIn) {
+        res.render("post", {
+          images: images,
+          name: session.name.substring(0, session.name.indexOf(" "))
+            ? session.name.substring(0, session.name.indexOf(" "))
+            : session.name,
+          isLoggedIn: session.isLoggedIn,
+          email: session.email,
+          username: session.username,
+        });
+      } else {
+        res.redirect("/");
+      }
+    }
+  });
 });
 
 router.get("/locations", (req, res) => {
@@ -192,19 +186,59 @@ router.get("/locations", (req, res) => {
   }
 });
 
+router.get("/profile", (req, res) => {
+  ImageModel.find({ author: session._id }, (err, images) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send("An error occurred", err);
+    } else {
+      if (session.isLoggedIn) {
+        res.render("profile", {
+          images: images,
+          name: session.name,
+          isLoggedIn: session.isLoggedIn,
+          email: session.email,
+          username: session.username,
+          phonenumber: session.phonenumber,
+          age: session.age,
+        });
+      } else {
+        res.render("home", {
+          name: session.name.substring(0, session.name.indexOf(" "))
+            ? session.name.substring(0, session.name.indexOf(" "))
+            : session.name,
+          isLoggedIn: session.isLoggedIn,
+          email: session.email,
+          username: session.username,
+        });
+      }
+    }
+  });
+});
+
 router.get("/feed", (req, res) => {
-  if (session.isLoggedIn) {
-    res.render("feed", {
-      name: session.name.substring(0, session.name.indexOf(" "))
-        ? session.name.substring(0, session.name.indexOf(" "))
-        : session.name,
-      isLoggedIn: session.isLoggedIn,
-      email: session.email,
-      username: session.username,
-    });
-  } else {
-    res.redirect("/");
-  }
+  ImageModel.find({}, (err, images) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send("An error occurred", err);
+    } else {
+      if (session.isLoggedIn) {
+        res.render("feed", {
+          images: images,
+          // caption: caption,
+          // description: description,
+          name: session.name.substring(0, session.name.indexOf(" "))
+            ? session.name.substring(0, session.name.indexOf(" "))
+            : session.name,
+          isLoggedIn: session.isLoggedIn,
+          email: session.email,
+          username: session.username,
+        });
+      } else {
+        res.redirect("/");
+      }
+    }
+  });
 });
 
 router.get("/budget", (req, res) => {
