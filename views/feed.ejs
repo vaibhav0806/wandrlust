@@ -14,23 +14,27 @@
     <%- include('partials/navbar.ejs', { name: name, isLoggedIn: isLoggedIn, email: email}); %>
         <!--Section: Newsfeed-->
         <div>
-            <% images.forEach(function (image){ %>
-                <section>
+            <section
+                style="display: flex; flex-direction: row; flex-wrap: wrap; flex: 0 1; gap: 2rem; padding: 5rem; justify-content: center;">
+                <% images.forEach(function (image){ %>
                     <div class="card" style="max-width: 30rem">
                         <div class="card-body">
                             <!-- Data -->
                             <div class="d-flex mb-3">
-                                <a href="">
+                                <a href="" style="text-decoration: none;">
                                     <img src="" class="border rounded-circle me-2" alt="Avatar" style="height: 40px" />
                                 </a>
                                 <div>
-                                    <a href="" class="text-dark mb-0">
+                                    <a href="" class="text-dark mb-0" style="text-decoration: none;">
                                         <strong>
-                                            <%= image.author %>
+                                            <%= image.author.name %>
                                         </strong>
                                     </a>
-                                    <a href="" class="text-muted d-block" style="margin-top: -6px">
-                                        <small>10h</small>
+                                    <a href="" class="text-muted d-block"
+                                        style="margin-top: -6px; text-decoration: none;">
+                                        <small>
+                                            <%= image.createdAt.toUTCString() %>
+                                        </small>
                                     </a>
                                 </div>
                             </div>
@@ -56,7 +60,7 @@
                             <!-- Reactions -->
                             <div class="d-flex justify-content-between mb-3">
                                 <div>
-                                    <a href="">
+                                    <a href="" style="text-decoration: none;">
                                         <i class="fas fa-heart text-danger"></i>
                                         <span>
                                             <%= image.likes %>
@@ -72,8 +76,8 @@
                         </div>
                         <!-- Interactions -->
                     </div>
-                </section>
-                <% }); %>
+                    <% }); %>
+            </section>
         </div>
 
         <!--Section: Newsfeed-->
