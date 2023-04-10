@@ -6,8 +6,10 @@ const session = require("../Session/session");
 const nodemailer = require("nodemailer");
 const multer = require("multer");
 const ImageModel = require("../Models/images");
+const UserModel = require("../Models/user");
 const path = require("path");
 const fs = require("fs");
+const { log } = require("console");
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -148,29 +150,6 @@ router.post("/uploadPhoto", upload.single("myImage"), (req, res) => {
   });
 });
 
-router.get("/post", (req, res) => {
-  ImageModel.find({ author: session._id }, (err, images) => {
-    if (err) {
-      console.log(err);
-      res.status(500).send("An error occurred", err);
-    } else {
-      if (session.isLoggedIn) {
-        res.render("post", {
-          images: images,
-          name: session.name.substring(0, session.name.indexOf(" "))
-            ? session.name.substring(0, session.name.indexOf(" "))
-            : session.name,
-          isLoggedIn: session.isLoggedIn,
-          email: session.email,
-          username: session.username,
-        });
-      } else {
-        res.redirect("/");
-      }
-    }
-  });
-});
-
 router.get("/locations", (req, res) => {
   if (session.isLoggedIn) {
     res.render("location", {
@@ -186,12 +165,38 @@ router.get("/locations", (req, res) => {
   }
 });
 
+router.get("/post", (req, res) => {
+  ImageModel.find({ author: session._id }, (err, images) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send({ message: `An error occured ${err}` });
+    } else {
+      images = images.reverse();
+      if (session.isLoggedIn) {
+        res.render("post", {
+          images: images,
+          name: session.name.substring(0, session.name.indexOf(" "))
+            ? session.name.substring(0, session.name.indexOf(" "))
+            : session.name,
+          isLoggedIn: session.isLoggedIn,
+          email: session.email,
+          username: session.username,
+          age: session.age,
+        });
+      } else {
+        res.redirect("/");
+      }
+    }
+  });
+});
+
 router.get("/profile", (req, res) => {
   ImageModel.find({ author: session._id }, (err, images) => {
     if (err) {
       console.log(err);
-      res.status(500).send("An error occurred", err);
+      res.status(500).send({ message: `An error occured ${err}` });
     } else {
+      images = images.reverse();
       if (session.isLoggedIn) {
         res.render("profile", {
           images: images,
@@ -203,14 +208,7 @@ router.get("/profile", (req, res) => {
           age: session.age,
         });
       } else {
-        res.render("home", {
-          name: session.name.substring(0, session.name.indexOf(" "))
-            ? session.name.substring(0, session.name.indexOf(" "))
-            : session.name,
-          isLoggedIn: session.isLoggedIn,
-          email: session.email,
-          username: session.username,
-        });
+        res.redirect("/");
       }
     }
   });
@@ -220,13 +218,12 @@ router.get("/feed", (req, res) => {
   ImageModel.find({}, (err, images) => {
     if (err) {
       console.log(err);
-      res.status(500).send("An error occurred", err);
+      res.status(500).send({ message: `An error occured ${err}` });
     } else {
+      images = images.reverse();
       if (session.isLoggedIn) {
         res.render("feed", {
           images: images,
-          // caption: caption,
-          // description: description,
           name: session.name.substring(0, session.name.indexOf(" "))
             ? session.name.substring(0, session.name.indexOf(" "))
             : session.name,
@@ -238,7 +235,7 @@ router.get("/feed", (req, res) => {
         res.redirect("/");
       }
     }
-  });
+  }).populate("author");
 });
 
 router.get("/budget", (req, res) => {

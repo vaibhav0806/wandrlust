@@ -60,12 +60,25 @@
                             <!-- Reactions -->
                             <div class="d-flex justify-content-between mb-3">
                                 <div>
-                                    <a href="" style="text-decoration: none;">
-                                        <i class="fas fa-heart text-danger"></i>
-                                        <span>
-                                            <%= image.likes %>
-                                        </span>
-                                    </a>
+                                    <% if(image.likes.includes(_id)){ %>
+                                        <a href="" style="text-decoration: none;"
+                                            onclick="decreaseLikes('<%=image._id%>')">
+                                            <i class="fas fa-heart text-danger"></i>
+                                            <span>
+                                                <%= image.likes.length %>
+                                            </span>
+                                        </a>
+
+                                        <%} else{ %>
+                                            <a href="" style="text-decoration: none;"
+                                                onclick="increaseLikes('<%=image._id%>')">
+                                                <i class="fas fa-heart text-danger"></i>
+                                                <span>
+                                                    <%= image.likes.length %>
+                                                </span>
+                                            </a>
+                                            <% } %>
+
                                 </div>
                                 <div>
                                     <%= image.caption %>
@@ -82,6 +95,34 @@
 
         <!--Section: Newsfeed-->
         <%- include('partials/footer') %>
+            <script>
+                const increaseLikes = async (imageId) => {
+                    console.log("Increase Like");
+                    console.log(imageId);
+                    await fetch("/like", {
+                        method: "put",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            imageId
+                        })
+                    })
+                }
+
+                const decreaseLikes = async (imageId) => {
+                    console.log("Decrease Like");
+                    await fetch("/dislike", {
+                        method: "put",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            imageId
+                        })
+                    })
+                }
+            </script>
 </body>
 
 </html>
