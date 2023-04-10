@@ -142,7 +142,6 @@ router.post("/uploadPhoto", upload.single("myImage"), (req, res) => {
     image: obj.img,
     caption: req.body.caption,
     description: req.body.description,
-    likes: 0,
     author: session._id,
   });
   newImage.save((err) => {
@@ -230,12 +229,49 @@ router.get("/feed", (req, res) => {
           isLoggedIn: session.isLoggedIn,
           email: session.email,
           username: session.username,
+          _id: session._id,
         });
       } else {
         res.redirect("/");
       }
     }
   }).populate("author");
+});
+
+router.put("/like", (req, res) => {
+  ImageModel.findByIdAndUpdate(
+    req.body.imageId,
+    {
+      $push: { likes: session._id },
+    },
+    {
+      new: true,
+    }
+  ).exec((err, result) => {
+    if (err) {
+      return res.status(422).json({ error: err });
+    } else {
+      res.json(result);
+    }
+  });
+});
+
+router.put("/dislike", (req, res) => {
+  ImageModel.findByIdAndUpdate(
+    req.body.imageId,
+    {
+      $pull: { likes: session._id },
+    },
+    {
+      new: true,
+    }
+  ).exec((err, result) => {
+    if (err) {
+      return res.status(422).json({ error: err });
+    } else {
+      res.json(result);
+    }
+  });
 });
 
 router.get("/budget", (req, res) => {
