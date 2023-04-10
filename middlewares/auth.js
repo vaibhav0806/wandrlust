@@ -13,6 +13,7 @@ const auth = (req, res, next) => {
       const user = await User.findOne({
         _id: decoded.id,
       });
+      req.user = user;
       session.name = user.name;
       session.isLoggedIn = true;
       session.phonenumber = user.phone;
