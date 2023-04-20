@@ -9,7 +9,6 @@ const ImageModel = require("../Models/images");
 const UserModel = require("../Models/user");
 const path = require("path");
 const fs = require("fs");
-const { log } = require("console");
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -254,6 +253,51 @@ router.put("/like", (req, res) => {
       res.json(result);
     }
   });
+});
+
+router.get("/todo", (req, res) => {
+  res.render("todo", {
+    name: session.name.substring(0, session.name.indexOf(" "))
+      ? session.name.substring(0, session.name.indexOf(" "))
+      : session.name,
+    isLoggedIn: session.isLoggedIn,
+    email: session.email,
+    username: session.username,
+  });
+});
+
+router.get("/admin", (req, res) => {
+  ImageModel.find({}, (err, images) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send({ message: `An error occured ${err}` });
+    } else {
+      images = images.reverse();
+      if (session.isLoggedIn) {
+        res.render("admin", {
+          images: images,
+          name: session.name.substring(0, session.name.indexOf(" "))
+            ? session.name.substring(0, session.name.indexOf(" "))
+            : session.name,
+          isLoggedIn: session.isLoggedIn,
+          email: session.email,
+          username: session.username,
+          _id: session._id,
+        });
+      } else {
+        res.redirect("/");
+      }
+    }
+  }).populate("author");
+});
+
+router.delete("/deletePost", async (req, res) => {
+  const deleted = await ImageModel.findByIdAndRemove(req.body.imageId);
+  if (deleted) {
+    console.log("Deleted Successfully");
+  } else {
+    console.log("error");
+  }
 });
 
 router.put("/dislike", (req, res) => {
