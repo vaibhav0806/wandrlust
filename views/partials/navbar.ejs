@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile</title>
+    <title>Navbar</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
     <!-- Google Fonts Roboto -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" />
@@ -67,7 +67,8 @@
                                     <i class="fas fa-user-circle text-decoration-none text-white fa-2x"></i>
                                 </div>
                             </a>
-                            <ul class="dropdown-menu mt-3" aria-labelledby="dropdownMenuLink" style="background-color: #282b30;">
+                            <ul class="dropdown-menu mt-3" aria-labelledby="dropdownMenuLink"
+                                style="background-color: #282b30;">
                                 <a href="/profile" style="text-decoration: none">
                                     <div class="profile dropdown-item text-white bg-transparent"
                                         style="display: flex; flex-direction: row; gap:1rem">
@@ -91,7 +92,11 @@
                                 <li>
                                     <a class="dropdown-item text-white bg-transparent" href="/budget">Budget Tracker</a>
                                 </li>
-                                <li style="padding-bottom: .5rem"><a class="dropdown-item text-white bg-transparent" href="/logout">Logout</a></li>
+                                <li>
+                                    <a class="dropdown-item text-white bg-transparent" href="/todo">Todo List</a>
+                                </li>
+                                <li style="padding-bottom: .5rem"><a class="dropdown-item text-white bg-transparent"
+                                        href="/logout">Logout</a></li>
                             </ul>
                         </li>
                         <% } %>
