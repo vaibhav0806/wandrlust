@@ -64,11 +64,16 @@
                         <img class="w-100 rounded-3" src="data:image/<%=image.image.contentType%>;base64,
                               <%=image.image.data.toString('base64')%>">
                       </div>
+                      <div class="d-flex justify-content-between mb-3">
+                        <div>
+                          <i class="fas fa-heart text-danger"></i>
+                          <span>
+                            <%= image.likes.length %>
+                          </span>
+                        </div>
+                      </div>
                     </div>
                     <% }) }%>
-                      <!-- <% if(!images) { %>
-                        <h1>No Images Found</h1>
-                        <% } %> -->
                 </div>
               </div>
             </div>
