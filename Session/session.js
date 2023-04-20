@@ -7,6 +7,7 @@ const session = {
   age: 0,
   gender: "",
   _id: "",
+  blocked: false,
 };
 
 module.exports = session;
