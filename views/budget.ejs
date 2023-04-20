@@ -11,136 +11,134 @@
 </head>
 
 <body>
-    <%- include('partials/navbar.ejs', { name: name, isLoggedIn: isLoggedIn, email: email}); %>
-        <div class="container u-full-width">
-            <h2>Budget Tracker</h2>
-            <form id="shopping-form">
-                <div class="row">
-                    <div class="ten columns">
-                        <label for="item">Shopping List Item</label>
-                        <input class="u-full-width" id="item" placeholder="New Item">
-                    </div>
-                    <div class="two columns">
-                        <label for="item">Price</label>
-                        <input class="u-full-width" id="amount" placeholder="₹">
-                    </div>
+    <div class="container u-full-width">
+        <h2 style="color: #f91942">Budget Tracker</h2>
+        <form id="shopping-form">
+            <div class="r   ow">
+                <div class="ten columns">
+                    <label for="item">Shopping List Item</label>
+                    <input class="u-full-width" id="item" placeholder="New Item">
                 </div>
-                <div class="u-full-width" id="message"></div>
-                <input type='submit' value='Submit' id="submit-button" class="btn ">
-                <table class="u-full-width">
-                    <tbody id="shopping-list">
+                <div class="two columns">
+                    <label for="item">Price</label>
+                    <input class="u-full-width" id="amount" placeholder="₹">
+                </div>
+            </div>
+            <div class="u-full-width" id="message"></div>
+            <input type='submit' value='Submit' id="submit-button" class="btn ">
+            <table class="u-full-width">
+                <tbody id="shopping-list">
 
-                    </tbody>
-                    <tr>
-                        <td class="nine columns">
-                            <str>Total Cost</str>
-                        </td>
-                        <td class="total three columns">
-                            <str> ₹ 0.00</str>
-                        </td>
-                    </tr>
-                </table>
-        </div>
-        <%- include('partials/footer') %>
-            <script>
-                const form = document.getElementById('shopping-form');
-                const item = document.getElementById('item');
-                const amount = document.getElementById('amount');
-                const message = document.getElementById('message');
-                let shoppingList = document.getElementById('shopping-list');
-                let total = document.querySelector('.total');
-
-
-                form.addEventListener('submit', function (e) {
-                    validateItem();
-                    calculateCost();
-                    e.preventDefault();
-                });
-
-                shoppingList.addEventListener('click', deleteItem);
-
-                function validateItem() {
-                    if (item.value !== '' && (amount.value !== '' && parseFloat(amount.value))) {
-                        addItem()
-                    } else if ((item.value === '') && (amount.value === '' || !parseFloat(amount.value))) {
-                        item.classList.add('error');
-                        amount.classList.add('error');
-                        setMessage("Please complete all fields. Item price must be a numerical value", 'error');
-                    } else if (amount.value === '' || !parseFloat(amount.value)) {
-                        amount.classList.add('error');
-                        setMessage("Please complete all fields. Item price must be a numerical value", 'error');
-                    } else {
-                        item.classList.add('error');
-                        setMessage("Please complete all fields", 'error');
-                    }
-
-                    setTimeout(function () {
-                        item.classList.remove('error');
-                        amount.classList.remove('error');
-                        message.innerText = '';
-                        message.classList.remove('error');
-                    }, 2000);
+                </tbody>
+                <tr>
+                    <td class="nine columns">
+                        <str>Total Cost</str>
+                    </td>
+                    <td class="total three columns">
+                        <str> ₹ 0.00</str>
+                    </td>
+                </tr>
+            </table>
+    </div>
+    <script>
+        const form = document.getElementById('shopping-form');
+        const item = document.getElementById('item');
+        const amount = document.getElementById('amount');
+        const message = document.getElementById('message');
+        let shoppingList = document.getElementById('shopping-list');
+        let total = document.querySelector('.total');
 
 
+        form.addEventListener('submit', function (e) {
+            validateItem();
+            calculateCost();
+            e.preventDefault();
+        });
 
-                }
+        shoppingList.addEventListener('click', deleteItem);
 
-                function addItem() {
-                    let row = document.createElement('tr');
-                    row.innerHTML = `<td class="one column"><i class="far fa-trash-alt delete-item"></i></td>
+        function validateItem() {
+            if (item.value !== '' && (amount.value !== '' && parseFloat(amount.value))) {
+                addItem()
+            } else if ((item.value === '') && (amount.value === '' || !parseFloat(amount.value))) {
+                item.classList.add('error');
+                amount.classList.add('error');
+                setMessage("Please complete all fields. Item price must be a numerical value", 'error');
+            } else if (amount.value === '' || !parseFloat(amount.value)) {
+                amount.classList.add('error');
+                setMessage("Please complete all fields. Item price must be a numerical value", 'error');
+            } else {
+                item.classList.add('error');
+                setMessage("Please complete all fields", 'error');
+            }
+
+            setTimeout(function () {
+                item.classList.remove('error');
+                amount.classList.remove('error');
+                message.innerText = '';
+                message.classList.remove('error');
+            }, 2000);
+
+
+
+        }
+
+        function addItem() {
+            let row = document.createElement('tr');
+            row.innerHTML = `<td class="one column"><i class="far fa-trash-alt delete-item"></i></td>
                     <td class="eight columns">${item.value}</td>
                     <td class="three columns price">${amount.value}</td>`
-                    shoppingList.appendChild(row);
-                    setMessage(`${item.value} successfully added.`, 'success');
+            shoppingList.appendChild(row);
+            setMessage(`${item.value} successfully added.`, 'success');
 
-                    setTimeout(function () {
-                        message.innerText = '';
-                        message.classList.remove('success');
-                    }, 1000);
-                    item.value = '';
-                    amount.value = '';
+            setTimeout(function () {
+                message.innerText = '';
+                message.classList.remove('success');
+            }, 1000);
+            item.value = '';
+            amount.value = '';
 
-                }
+        }
 
-                function deleteItem(e) {
-                    if (e.target.classList.contains('delete-item')) {
-                        e.target.parentNode.parentNode.remove();
-                        console.log(shoppingList);
-                        calculateCost();
-                        setMessage('Item deleted', 'success');
-                        setTimeout(function () {
-                            message.innerText = '';
-                            message.classList.remove('success');
-                        }, 1000);
+        function deleteItem(e) {
+            if (e.target.classList.contains('delete-item')) {
+                e.target.parentNode.parentNode.remove();
+                console.log(shoppingList);
+                calculateCost();
+                setMessage('Item deleted', 'success');
+                setTimeout(function () {
+                    message.innerText = '';
+                    message.classList.remove('success');
+                }, 1000);
+            }
+        }
+
+        function calculateCost() {
+            let subTotal = 0;
+            for (var i = 0, row; row = shoppingList.rows[i]; i++) {
+                for (var j = 0, cell; cell = row.cells[j]; j++) {
+                    if (cell.classList.contains("price")) {
+                        subTotal += parseFloat(cell.innerText);
                     }
                 }
+            }
+            total.innerText = "₹" + subTotal.toFixed(2);
+            if (subTotal > 0) {
+                total.classList.add('cost');
+            } else {
+                total.classList.remove('cost');
+            }
+        }
 
-                function calculateCost() {
-                    let subTotal = 0;
-                    for (var i = 0, row; row = shoppingList.rows[i]; i++) {
-                        for (var j = 0, cell; cell = row.cells[j]; j++) {
-                            if (cell.classList.contains("price")) {
-                                subTotal += parseFloat(cell.innerText);
-                            }
-                        }
-                    }
-                    total.innerText = "₹" + subTotal.toFixed(2);
-                    if (subTotal > 0) {
-                        total.classList.add('cost');
-                    } else {
-                        total.classList.remove('cost');
-                    }
-                }
-
-                function setMessage(messageText, messageClass) {
-                    message.innerHTML = `
+        function setMessage(messageText, messageClass) {
+            message.innerHTML = `
         <p>${messageText}</p>
     `;
-                    message.classList.add(`${messageClass}`)
-                }
+            message.classList.add(`${messageClass}`)
+        }
 
 
-            </script>
+    </script>
 </body>
 
 </html>
