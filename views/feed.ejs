@@ -22,7 +22,8 @@
                             <!-- Data -->
                             <div class="d-flex mb-3">
                                 <a href="" style="text-decoration: none;">
-                                    <img src="" class="border rounded-circle me-2" alt="Avatar" style="height: 40px" />
+                                    <img src="/images/profile.png" class="border rounded-circle me-2" alt="Avatar"
+                                        style="height: 40px" />
                                 </a>
                                 <div>
                                     <a href="" class="text-dark mb-0" style="text-decoration: none;">
@@ -97,6 +98,7 @@
         <%- include('partials/footer') %>
             <script>
                 const increaseLikes = async (imageId) => {
+
                     console.log("Increase Like");
                     console.log(imageId);
                     await fetch("/like", {
