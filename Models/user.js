@@ -43,6 +43,11 @@ const UserSchema = new mongoose.Schema(
       type: String,
       required: false,
     },
+    blocked: {
+      type: Boolean,
+      default: false,
+      required: false,
+    },
     createdAt: {
       type: Date,
       default: Date.now,
