@@ -65,6 +65,7 @@ const login = async (req, res, next) => {
     session.age = user.age;
     session.gender = user.gender;
     session._id = user._id;
+    session.blocked = user.blocked;
     res.redirect("/");
   } catch (err) {
     next(err);
