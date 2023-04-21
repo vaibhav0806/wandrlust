@@ -1,13 +1,12 @@
 const express = require("express");
 const path = require("path");
 const { DB_URL } = require("./config");
-const User = require("./Models/user");
 const { mongoose } = require("mongoose");
 var bodyParser = require("body-parser");
 const AuthRoute = require("./routes/auth");
+const AdminRoute = require("./routes/admin");
 const cookieParser = require("cookie-parser");
 const app = express();
-const Admin = require("./Models/admin");
 
 app.use(express.static(path.join(__dirname, "public")));
 var PORT = process.env.PORT || 6969;
@@ -30,14 +29,8 @@ mongoose.connection.on("disconnected", () => {
   console.log("Mongodb Disconnected.");
 });
 
-const admin = new Admin({
-  username: "admin",
-  password: "admin",
-});
-
-admin.save();
-
 app.use("/", AuthRoute);
+app.use("/admin", AdminRoute);
 
 app.listen(PORT, (err) => {
   if (err) {
