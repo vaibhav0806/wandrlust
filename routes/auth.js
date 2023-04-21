@@ -266,69 +266,8 @@ router.get("/todo", (req, res) => {
   });
 });
 
-router.get("/admin", (req, res) => {
-  ImageModel.find({}, (err, images) => {
-    if (err) {
-      console.log(err);
-      res.status(500).send({ message: `An error occured ${err}` });
-    } else {
-      images = images.reverse();
-      UserModel.find({}, (err, users) => {
-        if (err) {
-          console.log(err);
-          res.status(500).send({ message: `An error occured ${err}` });
-        } else {
-          if (session.isLoggedIn) {
-            res.render("admin", {
-              users: users,
-              images: images,
-              name: session.name.substring(0, session.name.indexOf(" "))
-                ? session.name.substring(0, session.name.indexOf(" "))
-                : session.name,
-              isLoggedIn: session.isLoggedIn,
-              email: session.email,
-              username: session.username,
-              _id: session._id,
-            });
-          } else {
-            res.redirect("/");
-          }
-        }
-      });
-    }
-  }).populate("author");
-});
-
-router.delete("/deletePostAdmin", async (req, res) => {
-  const deleted = await ImageModel.findByIdAndRemove(req.body.imageId);
-});
-
-router.put("/blockUserAdmin", async (req, res) => {
-  const blocked = await UserModel.findByIdAndUpdate(
-    req.body.userId,
-    {
-      $set: { blocked: true },
-    },
-    {
-      new: true,
-    }
-  );
-});
-
-router.put("/unBlockUserAdmin", async (req, res) => {
-  const blocked = await UserModel.findByIdAndUpdate(req.body.userId, {
-    $set: { blocked: false },
-  });
-});
-
 router.delete("/deletePost", async (req, res) => {
-  console.log(req.body.imageId);
   const deleted = await ImageModel.findByIdAndRemove(req.body.imageId);
-  if (deleted) {
-    console.log("Deleted Successfully");
-  } else {
-    console.log("error");
-  }
 });
 
 router.put("/dislike", (req, res) => {
