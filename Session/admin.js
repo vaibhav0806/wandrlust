@@ -1,0 +1,3 @@
+const admin = {
+  isAdmin: false,
+};
