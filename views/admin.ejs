@@ -127,7 +127,7 @@
     </div>
     <script>
         const deletePost = async (imageId) => {
-            await fetch("/deletePostAdmin", {
+            await fetch("admin/deletePostAdmin", {
                 method: "delete",
                 headers: {
                     "Content-Type": "application/json",
@@ -139,7 +139,7 @@
         }
 
         const blockUser = async (userId) => {
-            await fetch("/blockUserAdmin", {
+            await fetch("admin/blockUserAdmin", {
                 method: "put",
                 headers: {
                     "Content-Type": "application/json",
@@ -151,7 +151,7 @@
         }
 
         const UnblockUser = async (userId) => {
-            await fetch("/unBlockUserAdmin", {
+            await fetch("admin/unBlockUserAdmin", {
                 method: "put",
                 headers: {
                     "Content-Type": "application/json",
