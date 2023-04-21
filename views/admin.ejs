@@ -12,80 +12,152 @@
 <body>
     <!--Section: Newsfeed-->
     <div>
-        <section
-            style="display: flex; flex-direction: row; flex-wrap: wrap; flex: 0 1; gap: 2rem; padding: 5rem; justify-content: center;">
-            <% images.forEach(function (image){ %>
-                <div class="card" style="max-width: 30rem">
-                    <div class="card-body">
-                        <!-- Data -->
-                        <div class="d-flex mb-3">
-                            <a href="" style="text-decoration: none;">
-                                <img src="/images/profile.png" class="border rounded-circle me-2" alt="Avatar"
-                                    style="height: 40px" />
-                            </a>
-                            <div>
-                                <a href="" class="text-dark mb-0" style="text-decoration: none;">
-                                    <strong>
-                                        <%= image.author.name %>
-                                    </strong>
-                                </a>
-                                <a href="" class="text-muted d-block" style="margin-top: -6px; text-decoration: none;">
-                                    <small>
-                                        <%= image.createdAt.toUTCString() %>
-                                    </small>
-                                </a>
+        <ul class="nav nav-tabs mb-3" id="myTab0" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="home-tab0" data-mdb-toggle="tab" data-mdb-target="#home0"
+                    type="button" role="tab" aria-controls="home" aria-selected="true">
+                    Posts
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="profile-tab0" data-mdb-toggle="tab" data-mdb-target="#profile0"
+                    type="button" role="tab" aria-controls="profile" aria-selected="false">
+                    Users
+                </button>
+            </li>
+        </ul>
+        <div class="tab-content" id="myTabContent0">
+            <div class="tab-pane fade show active" id="home0" role="tabpanel" aria-labelledby="home-tab0">
+                <section
+                    style="display: flex; flex-direction: row; flex-wrap: wrap; flex: 0 1; gap: 2rem; padding: 5rem; justify-content: center;">
+                    <% images.forEach(function (image){ %>
+                        <div class="card" style="max-width: 30rem">
+                            <div class="card-body">
+                                <!-- Data -->
+                                <div class="d-flex mb-3">
+                                    <a href="" style="text-decoration: none;">
+                                        <img src="/images/profile.png" class="border rounded-circle me-2" alt="Avatar"
+                                            style="height: 40px" />
+                                    </a>
+                                    <div>
+                                        <a href="" class="text-dark mb-0" style="text-decoration: none;">
+                                            <strong>
+                                                <%= image.author.name %>
+                                            </strong>
+                                        </a>
+                                        <a href="" class="text-muted d-block"
+                                            style="margin-top: -6px; text-decoration: none;">
+                                            <small>
+                                                <%= image.createdAt.toUTCString() %>
+                                            </small>
+                                        </a>
+                                    </div>
+                                </div>
+                                <!-- Description -->
+                                <div>
+                                    <p>
+                                        <%= image.description %>
+                                    </p>
+                                </div>
                             </div>
-                        </div>
-                        <!-- Description -->
-                        <div>
-                            <p>
-                                <%= image.description %>
-                            </p>
-                        </div>
-                    </div>
 
-                    <!-- Media -->
-                    <div class="bg-image hover-overlay ripple rounded-0" data-mdb-ripple-color="light">
-                        <img src="data:image/<%=image.image.contentType%>;base64,
+                            <!-- Media -->
+                            <div class="bg-image hover-overlay ripple rounded-0" data-mdb-ripple-color="light">
+                                <img src="data:image/<%=image.image.contentType%>;base64,
                         <%=image.image.data.toString('base64')%>" class="w-100" />
-                        <a href="#!">
-                            <div class="mask" style="background-color: rgba(251, 251, 251, 0.2)"></div>
-                        </a>
-                    </div>
-                    <!-- Media -->
-                    <!-- Interactions -->
-                    <div class="card-body">
-                        <!-- Reactions -->
-                        <div class="d-flex justify-content-between mb-3">
-                            <div>
-                                <a href="" style="text-decoration: none;" onclick="deletePost('<%=image._id%>')">
-                                    <i class="fas fa-trash text-danger"></i>
-                                    <span>
-                                        Delete
-                                    </span>
+                                <a href="#!">
+                                    <div class="mask" style="background-color: rgba(251, 251, 251, 0.2)"></div>
                                 </a>
                             </div>
-                            <div>
-                                <%= image.caption %>
-                            </div>
-                        </div>
-                        <!-- Reactions -->
+                            <!-- Media -->
+                            <!-- Interactions -->
+                            <div class="card-body">
+                                <!-- Reactions -->
+                                <div class="d-flex justify-content-between mb-3">
+                                    <div>
+                                        <a href="" style="text-decoration: none;"
+                                            onclick="deletePost('<%=image._id%>')">
+                                            <i class="fas fa-trash text-danger"></i>
+                                            <span>
+                                                Delete
+                                            </span>
+                                        </a>
+                                    </div>
+                                    <div>
+                                        <%= image.caption %>
+                                    </div>
+                                </div>
+                                <!-- Reactions -->
 
+                            </div>
+                            <!-- Interactions -->
+                        </div>
+                        <% }); %>
+                </section>
+            </div>
+            <div class="tab-pane fade" id="profile0" role="tabpanel" aria-labelledby="profile-tab0">
+                <% users.forEach(function (user){ %>
+                    <div class="card">
+                        <div class="card-header">
+                            <%= user.name %>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <%= user.username %>
+                            </h5>
+                            <p class="card-text">
+                                <%= user.email %>
+                                    <br>
+                                    <%= user.phone %>
+                            </p>
+                            <% if(!user.blocked){ %>
+                                <a href="" onclick="blockUser('<%= user._id %>')" class="btn btn-dark">Block this
+                                    User</a>
+                                <% } else {%>
+                                    <a href="" onclick="UnblockUser('<%= user._id %>')" class="btn btn-dark">UnBlock
+                                        this
+                                        User</a>
+                                    <% } %>
+                        </div>
                     </div>
-                    <!-- Interactions -->
-                </div>
-                <% }); %>
-        </section>
+                    <% }); %>
+            </div>
+        </div>
+
     </div>
     <script>
         const deletePost = async (imageId) => {
-            await fetch("/deletePost", {
+            await fetch("/deletePostAdmin", {
                 method: "delete",
                 headers: {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
                     imageId
+                })
+            })
+        }
+
+        const blockUser = async (userId) => {
+            await fetch("/blockUserAdmin", {
+                method: "put",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    userId
+                })
+            })
+        }
+
+        const UnblockUser = async (userId) => {
+            await fetch("/unBlockUserAdmin", {
+                method: "put",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    userId
                 })
             })
         }
