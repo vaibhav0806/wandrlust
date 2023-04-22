@@ -29,8 +29,8 @@ mongoose.connection.on("disconnected", () => {
   console.log("Mongodb Disconnected.");
 });
 
-app.use("/", AuthRoute);
 app.use("/admin", AdminRoute);
+app.use("/", AuthRoute);
 
 app.listen(PORT, (err) => {
   if (err) {
