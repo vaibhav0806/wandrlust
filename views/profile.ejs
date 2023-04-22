@@ -47,21 +47,22 @@
                           <form id="editProfileform" method="post" action="/editprofile">
                             <div class="mb-3">
                               <label for="recipient-name" class="col-form-label">Change username</label>
-                              <input type="text" class="form-control" id="recipient-name" name="username" />
+                              <input onchange={validateHandleUsername()} type="text" class="form-control"
+                                id="recipient-name" name="username" />
                             </div>
                             <div class="mb-3">
-                              <label for="recipient-name" class="col-form-label">Change email-Id</label>
-                              <input type="text" class="form-control" id="recipient-name" name="email"
-                                value="<%= email%>" />
+                              <label for="recipient-email" class="col-form-label">Change email-Id</label>
+                              <input onchange="validateHandleEmail()" type="text" class="form-control"
+                                id="recipient-email" name="email" value="<%= email%>" />
                             </div>
                             <div class="mb-3">
-                              <label for="recipient-name" class="col-form-label">Change contact number</label>
-                              <input type="text" class="form-control" id="recipient-name" name="phonenumber"
-                                value="<%= phonenumber%>" />
+                              <label for="recipient-phone" class="col-form-label">Change contact number</label>
+                              <input onchange="handlePhoneNumberValidation()" type="text" class="form-control"
+                                id="recipient-phone" name="phonenumber" value="<%= phonenumber%>" />
                             </div>
                             <div class="mb-3" hidden>
-                              <label for="recipient-name" class="col-form-label">Object Id</label>
-                              <input value="<%= id %>" type="text" class="form-control" id="recipient-name" name="id" />
+                              <label for="recipient-id" class="col-form-label">Object Id</label>
+                              <input value="<%= id %>" type="text" class="form-control" id="recipient-id" name="id" />
                             </div>
                             <div class="modal-footer">
                               <button type="button" class="btn btn-outline-dark"
@@ -171,6 +172,12 @@
 
     <%- include('partials/footer') %>
       <script>
+
+        let regexEmail = /^[A-Za-z0-9._]+@[A-Za-z]+[.][A-Za-z]+$/
+        let regexUsername = /^[A-Za-z][A-Za-z0-9_]{7,29}$/
+        let regexPhonenumber = /^[6-9]\d{9}$/
+
+
         const deletePost = async (imageId) => {
           await fetch("/deletePost", {
             method: "delete",
@@ -199,6 +206,30 @@
           modalTitle.textContent = `Edit Your Profile`;
           modalBodyInput.value = recipient;
         })
+
+        const validateHandleUsername = () => {
+          let username = document.getElementById("recipient-name")
+          if (!username.value.match(regexUsername)) {
+            alert("Please enter valid Username")
+            username.value = "";
+          }
+        }
+
+        const validateHandleEmail = () => {
+          let email = document.getElementById("recipient-email")
+          if (!email.value.match(regexEmail)) {
+            alert("Please enter valid Email")
+            email.value = "";
+          }
+        }
+
+        const handlePhoneNumberValidation = () => {
+          let phonenumber = document.getElementById("recipient-phone")
+          if (!phonenumber.value.match(regexPhonenumber)) {
+            alert("Please enter valid Phone Number")
+            phonenumber.value = "";
+          }
+        }
 
       </script>
 </body>

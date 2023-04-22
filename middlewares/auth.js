@@ -7,7 +7,6 @@ const auth = (req, res, next) => {
   if (token) {
     jwt.verify(token, process.env.JWT_SECRET_KEY, async (err, decoded) => {
       if (err) {
-        // res.redirect("/login");
         console.log(err);
       }
       const user = await User.findOne({
