@@ -14,10 +14,9 @@
     <%- include('partials/navbar.ejs', { name: name, isLoggedIn: isLoggedIn, email: email}); %>
         <!--Section: Newsfeed-->
         <div>
-            <section
-                style="display: flex; flex-direction: row; flex-wrap: wrap; flex: 0 1; gap: 2rem; padding: 5rem; justify-content: center;">
+            <section style="display: flex; flex-direction: column; gap: 2rem; padding: 5rem; align-items: center;">
                 <% images.forEach(function (image){ %>
-                    <div class="card" style="max-width: 30rem">
+                    <div class="card" style="max-width: 40rem">
                         <div class="card-body">
                             <!-- Data -->
                             <div class="d-flex mb-3">
@@ -61,6 +60,9 @@
                             <!-- Reactions -->
                             <div class="d-flex justify-content-between mb-3">
                                 <div>
+                                    <%= image.caption %>
+                                </div>
+                                <div>
                                     <% if(image.likes.includes(_id)){ %>
                                         <a href="" style="text-decoration: none;"
                                             onclick="decreaseLikes('<%=image._id%>')">
@@ -80,9 +82,6 @@
                                             </a>
                                             <% } %>
 
-                                </div>
-                                <div>
-                                    <%= image.caption %>
                                 </div>
                             </div>
                             <!-- Reactions -->
