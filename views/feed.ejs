@@ -14,8 +14,10 @@
     <%- include('partials/navbar.ejs', { name: name, isLoggedIn: isLoggedIn, email: email}); %>
         <!--Section: Newsfeed-->
         <div style="justify-content: space-around;">
-            <div style="margin-top: 3rem; display: flex; flex-direction: column; gap: 1rem; position: fixed; left: 5rem;">
-                <div class="card" style="width: 20rem; height: 6rem; border-radius: 1rem; padding: 1rem; display: flex; flex-direction: row; justify-content: space-evenly;">
+            <div
+                style="margin-top: 5rem; display: flex; flex-direction: column; gap: 1rem; position: fixed; margin-left: 5rem;">
+                <div class="card"
+                    style="width: 20rem; height: 6rem; border-radius: 1rem; padding: 1rem; display: flex; flex-direction: row; justify-content: space-evenly;">
                     <div style="margin-top: 3%;">
                         <i class="fas fa-user-circle text-decoration-none text-black fa-3x"></i>
                     </div>
@@ -29,12 +31,13 @@
                     </div>
                 </div>
                 <a style="text-decoration: none;" href="/post">
-                    <button style="font-size: 1.5rem;color: white; font-weight: bold; background-color: #f94566; width: 20rem; height: 3rem; border-radius: 1rem; border: none;">
+                    <button
+                        style="font-size: 1.5rem;color: white; font-weight: bold; background-color: #f94566; width: 20rem; height: 3rem; border-radius: 1rem; border: none;">
                         Create Post
                     </button>
                 </a>
             </div>
-            <section style="display: flex; flex-direction: column; gap: 2rem; padding: 5rem; align-items: center;">
+            <section style="display: flex; flex-direction: column; gap: 2rem; padding: 8rem; align-items: center;">
                 <% images.forEach(function (image){ %>
                     <div class="card" style="max-width: 40rem; border-radius: 1rem;">
                         <div class="card-body">
@@ -111,8 +114,56 @@
                     <% }); %>
             </section>
             <div>
-                <div class="card" style="width: 20rem; height: 5rem;">
-                    <%= name %>
+                <div class="card"
+                    style="width: 25rem; height: 25rem; border-radius: 1rem; padding: 1rem; position: fixed; right: 0; top: 0; margin-top: 5rem; margin-right: 5rem;">
+                    <div style="font-size: 1rem; font-weight: bold;">
+                        Suggested people
+                    </div>
+                    <div class="input-group rounded" style="padding-top: 1rem; padding-bottom: 1rem">
+                        <input type="search" class="form-control rounded" placeholder="Search User" aria-label="Search"
+                            aria-describedby="search-addon" />
+                        <span class="input-group-text border-0" id="search-addon">
+                            <i class="fas fa-search"></i>
+                        </span>
+                    </div>
+                    <div style="display: flex; flex-direction: column; font-size: 1rem; gap: 1rem;">
+                        <div style="display: flex; flex-direction: row; gap: 1rem;">
+                            <div>
+                                <i class="fas fa-user-circle text-decoration-none text-black fa-3x"></i>
+                            </div>
+                            <div style="display: flex; flex-direction: column;">
+                                <div style="font-weight: bold">
+                                    <%= username %>
+                                </div>
+                                <div>
+                                    <%= email %>
+                                </div>
+                            </div>  
+                            <div style="padding-left: 5rem">
+                                <button style="background-color: #f94566; color: white; border-radius: .5rem; border: none; right: 0">
+                                    Follow
+                                </button>
+                            </div>
+                        </div>
+                        <div style="display: flex; flex-direction: row; gap: 1rem;">
+                            <div>
+                                <i class="fas fa-user-circle text-decoration-none text-black fa-3x"></i>
+                            </div>
+                            <div style="display: flex; flex-direction: column;">
+                                <div style="font-weight: bold">
+                                    <%= username %>
+                                </div>
+                                <div>
+                                    <%= email %>
+                                </div>
+                            </div>
+                            <div style="padding-left: 5rem">
+                                <button style="background-color: #f94566; color: white; border-radius: .5rem; border: none; right: 0">
+                                    Follow
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
