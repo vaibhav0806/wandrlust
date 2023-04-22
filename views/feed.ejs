@@ -50,7 +50,7 @@
                                 <div>
                                     <a href="" class="text-dark mb-0" style="text-decoration: none;">
                                         <strong>
-                                            <%= image.author.name %>
+                                            <%= image.author.username %>
                                         </strong>
                                     </a>
                                     <a href="" class="text-muted d-block"
@@ -115,7 +115,7 @@
             </section>
             <div>
                 <div class="card"
-                    style="width: 25rem; height: 25rem; border-radius: 1rem; padding: 1rem; position: fixed; right: 0; top: 0; margin-top: 5rem; margin-right: 5rem;">
+                    style="width: 25rem; height: 25rem; border-radius: 1rem; padding: 1rem; position: fixed; right: 0; top: 0; margin-top: 5rem; margin-right: 1rem;">
                     <div style="font-size: 1rem; font-weight: bold;">
                         Suggested people
                     </div>
@@ -127,44 +127,37 @@
                         </span>
                     </div>
                     <div style="display: flex; flex-direction: column; font-size: 1rem; gap: 1rem;">
-                        <div style="display: flex; flex-direction: row; gap: 1rem;">
-                            <div>
-                                <i class="fas fa-user-circle text-decoration-none text-black fa-3x"></i>
-                            </div>
-                            <div style="display: flex; flex-direction: column;">
-                                <div style="font-weight: bold">
-                                    <%= username %>
+                        <% users.forEach(function (user){ %>
+                            <% if(user.username !==username ) {%>
+                                <div style="display: flex; flex-direction: row; gap: 1rem;">
+                                    <div>
+                                        <i class="fas fa-user-circle text-decoration-none text-black fa-3x"></i>
+                                    </div>
+                                    <div style="display: flex; flex-direction: column;">
+                                        <div style="font-weight: bold">
+                                            <%= user.username %>
+                                        </div>
+                                        <div>
+                                            <%= user.email %>
+                                        </div>
+                                    </div>
+                                    <div
+                                        style="right: 0;display: flex;flex-direction: column;align-items: flex-end;width: 100%;justify-content: center;">
+                                        <% if(user.followers.includes(_id)){ %>
+                                            <button onclick="UnFollowUser('<%= user._id %>')"
+                                                style="background-color: #f94566; color: white; border-radius: .5rem; border: none;">
+                                                UnFollow
+                                            </button>
+                                            <% } else {%>
+                                                <button onclick="FollowUser('<%= user._id %>')"
+                                                    style="background-color: #f94566; color: white; border-radius: .5rem; border: none;">
+                                                    Follow
+                                                </button>
+                                                <% } %>
+                                    </div>
                                 </div>
-                                <div>
-                                    <%= email %>
-                                </div>
-                            </div>
-                            <div style="padding-left: 5rem">
-                                <button
-                                    style="background-color: #f94566; color: white; border-radius: .5rem; border: none; right: 0">
-                                    Follow
-                                </button>
-                            </div>
-                        </div>
-                        <div style="display: flex; flex-direction: row; gap: 1rem;">
-                            <div>
-                                <i class="fas fa-user-circle text-decoration-none text-black fa-3x"></i>
-                            </div>
-                            <div style="display: flex; flex-direction: column;">
-                                <div style="font-weight: bold">
-                                    <%= username %>
-                                </div>
-                                <div>
-                                    <%= email %>
-                                </div>
-                            </div>
-                            <div style="padding-left: 5rem">
-                                <button
-                                    style="background-color: #f94566; color: white; border-radius: .5rem; border: none; right: 0">
-                                    Follow
-                                </button>
-                            </div>
-                        </div>
+                                <% } %>
+                                    <% }); %>
                     </div>
                 </div>
             </div>
@@ -195,6 +188,32 @@
                             imageId
                         })
                     })
+                }
+
+                const FollowUser = async (followingId) => {
+                    await fetch("/follow", {
+                        method: "put",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            followingId
+                        })
+                    })
+                    location.reload(true)
+                }
+
+                const UnFollowUser = async (followingId) => {
+                    await fetch("/unfollow", {
+                        method: "put",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            followingId
+                        })
+                    })
+                    location.reload(true)
                 }
             </script>
 </body>
