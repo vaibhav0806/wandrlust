@@ -31,12 +31,12 @@
                   <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-1.webp"
                     alt="Generic placeholder image" class="img-fluid img-thumbnail mt-4 mb-2"
                     style="width: 150px; z-index: 1">
-                  <button type="button" class="btn btn-outline-dark "  data-mdb-toggle="modal"
-                  data-mdb-target="#exampleModal"
-                  data-mdb-whatever="<%= username%>" style="z-index: 1;">
+                  <button type="button" class="btn btn-dark " data-mdb-toggle="modal" data-mdb-target="#exampleModal"
+                    data-mdb-whatever="<%= username%>" style="z-index: 1;">
                     Edit profile
                   </button>
-                  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
                     <div class="modal-dialog">
                       <div class="modal-content">
                         <div class="modal-header">
@@ -66,7 +66,7 @@
                       </div>
                     </div>
                   </div>
-                  
+
                 </div>
                 <div class="ms-3" style="margin-top: 130px;">
                   <h3>
@@ -145,21 +145,21 @@
         }
 
         const exampleModal = document.getElementById('exampleModal');
-exampleModal.addEventListener('show.mdb.modal', (e) => {
-  // Button that triggered the modal
-  const button = e.relatedTarget;
-  // Extract info from data-mdb-* attributes
-  const recipient = button.getAttribute('data-mdb-whatever');
-  // If necessary, you could initiate an AJAX request here
-  // and then do the updating in a callback.
-  //
-  // Update the modal's content.
-  const modalTitle = exampleModal.querySelector('.modal-title');
-  const modalBodyInput = exampleModal.querySelector('.modal-body input');
+        exampleModal.addEventListener('show.mdb.modal', (e) => {
+          // Button that triggered the modal
+          const button = e.relatedTarget;
+          // Extract info from data-mdb-* attributes
+          const recipient = button.getAttribute('data-mdb-whatever');
+          // If necessary, you could initiate an AJAX request here
+          // and then do the updating in a callback.
+          //
+          // Update the modal's content.
+          const modalTitle = exampleModal.querySelector('.modal-title');
+          const modalBodyInput = exampleModal.querySelector('.modal-body input');
 
-  modalTitle.textContent = `Edit Your Profile`;
-  modalBodyInput.value = recipient;
-})
+          modalTitle.textContent = `Edit Your Profile`;
+          modalBodyInput.value = recipient;
+        })
 
       </script>
 </body>

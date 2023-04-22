@@ -204,6 +204,7 @@ router.get("/profile", (req, res) => {
           username: session.username,
           phonenumber: session.phonenumber,
           age: session.age,
+          id: session._id,
         });
       } else {
         res.redirect("/");
