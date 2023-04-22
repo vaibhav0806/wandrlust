@@ -227,20 +227,27 @@ router.get("/feed", (req, res) => {
       res.status(500).send({ message: `An error occurred ${err}` });
     } else {
       images = images.reverse();
-      if (session.isLoggedIn) {
-        res.render("feed", {
-          images: images,
-          name: session.name.substring(0, session.name.indexOf(" "))
-            ? session.name.substring(0, session.name.indexOf(" "))
-            : session.name,
-          isLoggedIn: session.isLoggedIn,
-          email: session.email,
-          username: session.username,
-          _id: session._id,
-        });
-      } else {
-        res.redirect("/");
-      }
+      UserModel.find({}, (err, users) => {
+        if (err) {
+          console.log(err);
+        } else {
+          if (session.isLoggedIn) {
+            res.render("feed", {
+              images: images,
+              users: users,
+              name: session.name.substring(0, session.name.indexOf(" "))
+                ? session.name.substring(0, session.name.indexOf(" "))
+                : session.name,
+              isLoggedIn: session.isLoggedIn,
+              email: session.email,
+              username: session.username,
+              _id: session._id,
+            });
+          } else {
+            res.redirect("/");
+          }
+        }
+      });
     }
   }).populate("author");
 });
