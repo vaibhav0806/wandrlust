@@ -111,10 +111,12 @@
                                     <%= user.phone %>
                             </p>
                             <% if(!user.blocked){ %>
-                                <button onclick="blockUser('<%= user._id %>')" class="btn btn-light">Block this
+                                <button onclick="blockUser('<%= user._id %>')" class="btn btn-dark" type="button">Block
+                                    this
                                     User</button>
                                 <% } else {%>
-                                    <button onclick="UnblockUser('<%= user._id %>')" class="btn btn-dark">UnBlock
+                                    <button type="button" onclick="UnblockUser('<%= user._id %>')"
+                                        class="btn btn-dark">UnBlock
                                         this
                                         User</button>
                                     <% } %>

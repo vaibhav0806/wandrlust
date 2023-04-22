@@ -139,7 +139,17 @@
                                             href="/logout">Logout</a></li>
                                 </ul>
                             </li>
-                            <% } %>
+                            <% } else { %>
+                                <a href="/admin/login" role="button" id="dropdownMenuLink"
+                                    style="display: flex;color: white;gap: 1rem;text-decoration: none;">
+                                    <div>
+                                        Admin Login
+                                    </div>
+                                    <div>
+                                        <i class="fas fa-solid fa-lock text-decoration-none fa-2x"></i>
+                                    </div>
+                                </a>
+                                <% } %>
                     </ul>
                 </div>
             </div>
