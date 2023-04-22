@@ -50,9 +50,9 @@
                         <div class="bg-image hover-overlay ripple rounded-0" data-mdb-ripple-color="light">
                             <img src="data:image/<%=image.image.contentType%>;base64,
                         <%=image.image.data.toString('base64')%>" class="w-100" />
-                            <a href="#!">
-                                <div class="mask" style="background-color: rgba(251, 251, 251, 0.2)"></div>
-                            </a>
+
+                            <div class="mask" style="background-color: rgba(251, 251, 251, 0.2)"></div>
+
                         </div>
                         <!-- Media -->
                         <!-- Interactions -->
@@ -97,9 +97,6 @@
         <%- include('partials/footer') %>
             <script>
                 const increaseLikes = async (imageId) => {
-
-                    console.log("Increase Like");
-                    console.log(imageId);
                     await fetch("/like", {
                         method: "put",
                         headers: {
@@ -112,7 +109,6 @@
                 }
 
                 const decreaseLikes = async (imageId) => {
-                    console.log("Decrease Like");
                     await fetch("/dislike", {
                         method: "put",
                         headers: {

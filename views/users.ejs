@@ -6,9 +6,67 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Users | Wandrlust</title>
+    <link rel="stylesheet" href="/PageCss/body.css">
+    <link rel="stylesheet" href="/PageCss/users.css">
+
 </head>
 
 <body>
+    <%- include('partials/navbar.ejs', { name: name, isLoggedIn: isLoggedIn, email: email}); %>
+        <% users.forEach(function (user){ %>
+            <% if(user.username !==username ) {%>
+                <div class="card">
+                    <div class="card-header" style="display: flex;gap: 0.7rem;align-items: center;">
+                        <div>
+                            <i class="fas fa-user-circle text-decoration-none fa-2x"></i>
+                        </div>
+                        <div>
+                            <%= user.name %>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <%= user.username %>
+                        </h5>
+                        <% if(user.followers.includes(_id)){ %>
+                            <a href="" class="btn-light bg-black"
+                                style="text-decoration: none; width: 9rem;height: 2rem;text-align: center;color: white;"
+                                onclick="UnFollowUser('<%= user._id %>')" type="submit">UnFollow</a>
+                            <% } else {%>
+                                <a href="" class="btn-light bg-black"
+                                    style="text-decoration: none; width: 9rem; height: 2rem; text-align: center;color: white;"
+                                    type="submit" onclick="FollowUser('<%= user._id %>')"
+                                    class="btn btn-dark">Follow</a>
+                                <% } %>
+                    </div>
+                </div>
+                <% } %>
+                    <% }); %>
+                        <script>
+                            const FollowUser = async (followingId) => {
+                                await fetch("/follow", {
+                                    method: "put",
+                                    headers: {
+                                        "Content-Type": "application/json",
+                                    },
+                                    body: JSON.stringify({
+                                        followingId
+                                    })
+                                })
+                            }
+
+                            const UnFollowUser = async (followingId) => {
+                                await fetch("/unfollow", {
+                                    method: "put",
+                                    headers: {
+                                        "Content-Type": "application/json",
+                                    },
+                                    body: JSON.stringify({
+                                        followingId
+                                    })
+                                })
+                            }
+                        </script>
 
 </body>
 

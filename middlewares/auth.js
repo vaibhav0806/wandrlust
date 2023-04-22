@@ -22,6 +22,9 @@ const auth = (req, res, next) => {
       session.age = user.age;
       session.gender = user.gender;
       session._id = user._id;
+      session.blocked = user.blocked;
+      session.followers = user.followers;
+      session.following = user.following;
     });
   } else {
     session.isLoggedIn = false;

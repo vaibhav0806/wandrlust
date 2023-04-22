@@ -69,6 +69,12 @@ const login = async (req, res, next) => {
     session.gender = user.gender;
     session._id = user._id;
     session.blocked = user.blocked;
+    console.log(user.following);
+    console.log(user.followers);
+    console.log(user.following.length);
+    console.log(user.followers.length);
+    session.followers = user.followers;
+    session.following = user.following;
     res.redirect("/");
   } catch (err) {
     next(err);

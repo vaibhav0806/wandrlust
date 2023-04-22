@@ -9,6 +9,7 @@ const ImageModel = require("../Models/images");
 const UserModel = require("../Models/user");
 const path = require("path");
 const fs = require("fs");
+const { unsubscribe } = require("./auth");
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -167,7 +168,7 @@ router.get("/post", (req, res) => {
   ImageModel.find({ author: session._id }, (err, images) => {
     if (err) {
       console.log(err);
-      res.status(500).send({ message: `An error occured ${err}` });
+      res.status(500).send({ message: `An error occurred ${err}` });
     } else {
       images = images.reverse();
       if (session.isLoggedIn) {
@@ -189,10 +190,14 @@ router.get("/post", (req, res) => {
 });
 
 router.get("/profile", (req, res) => {
+  console.log("Followings ", session.following);
+  console.log("Followers", session.followers);
+  console.log("Following Length", session.following.length);
+  console.log("Followers Length", session.followers.length);
   ImageModel.find({ author: session._id }, (err, images) => {
     if (err) {
       console.log(err);
-      res.status(500).send({ message: `An error occured ${err}` });
+      res.status(500).send({ message: `An error occurred ${err}` });
     } else {
       images = images.reverse();
       if (session.isLoggedIn) {
@@ -205,6 +210,8 @@ router.get("/profile", (req, res) => {
           phonenumber: session.phonenumber,
           age: session.age,
           id: session._id,
+          followers: session.followers,
+          following: session.following,
         });
       } else {
         res.redirect("/");
@@ -217,7 +224,7 @@ router.get("/feed", (req, res) => {
   ImageModel.find({}, (err, images) => {
     if (err) {
       console.log(err);
-      res.status(500).send({ message: `An error occured ${err}` });
+      res.status(500).send({ message: `An error occurred ${err}` });
     } else {
       images = images.reverse();
       if (session.isLoggedIn) {
@@ -289,6 +296,40 @@ router.put("/dislike", (req, res) => {
   });
 });
 
+router.put("/follow", async (req, res) => {
+  await UserModel.findByIdAndUpdate(
+    req.body.followingId,
+    {
+      $push: { followers: session._id },
+    },
+    {
+      new: true,
+    }
+  );
+
+  await UserModel.findByIdAndUpdate(
+    session._id,
+    {
+      $push: { following: req.body.followingId },
+    },
+    {
+      new: true,
+    }
+  );
+});
+
+router.put("/unfollow", async (req, res) => {
+  await UserModel.findByIdAndUpdate(req.body.followingId, {
+    $pull: { followers: session._id },
+  });
+
+  await UserModel.findByIdAndUpdate(session._id, {
+    $pull: {
+      following: req.body.followingId,
+    },
+  });
+});
+
 router.get("/budget", (req, res) => {
   if (session.isLoggedIn) {
     res.render("budget", {
@@ -315,6 +356,29 @@ router.post("/editprofile", async (req, res) => {
   });
   console.log(updated);
   res.redirect("/profile");
+});
+
+router.get("/users", async (req, res) => {
+  UserModel.find({}, (err, users) => {
+    if (err) {
+      console.log(err);
+    } else {
+      if (session.isLoggedIn) {
+        res.render("users", {
+          users: users,
+          name: session.name.substring(0, session.name.indexOf(" "))
+            ? session.name.substring(0, session.name.indexOf(" "))
+            : session.name,
+          isLoggedIn: session.isLoggedIn,
+          email: session.email,
+          username: session.username,
+          _id: session._id,
+        });
+      } else {
+        res.redirect("/");
+      }
+    }
+  });
 });
 
 router.get("*", (req, res) => {

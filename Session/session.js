@@ -8,6 +8,8 @@ const session = {
   gender: "",
   _id: "",
   blocked: false,
+  followers: [],
+  following: [],
 };
 
 module.exports = session;
