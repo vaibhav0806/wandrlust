@@ -304,4 +304,17 @@ router.get("/budget", (req, res) => {
   }
 });
 
+router.post("/editprofile", async (req, res) => {
+  console.log(req.body);
+  const updated = await UserModel.findByIdAndUpdate(req.body.id, {
+    $set: {
+      username: req.body.username,
+      email: req.body.email,
+      phone: req.body.phonenumber,
+    },
+  });
+  console.log(updated);
+  res.redirect("/profile");
+});
+
 module.exports = router;
