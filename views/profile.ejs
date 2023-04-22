@@ -24,21 +24,54 @@
     <section class="h-100 gradient-custom-2">
       <div class="container py-5 h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
-          <div class="col col-lg-9 col-xl-7">
+          <div class="col col-lg-9 col-xl-7 w-100">
             <div class="card">
               <div class="rounded-top text-white d-flex flex-row" style="background-color: #000; height:200px;">
                 <div class="ms-4 mt-5 d-flex flex-column" style="width: 150px;">
                   <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-1.webp"
                     alt="Generic placeholder image" class="img-fluid img-thumbnail mt-4 mb-2"
                     style="width: 150px; z-index: 1">
-                  <button type="button" class="btn btn-outline-dark" data-mdb-ripple-color="dark" style="z-index: 1;">
+                  <button type="button" class="btn btn-outline-dark "  data-mdb-toggle="modal"
+                  data-mdb-target="#exampleModal"
+                  data-mdb-whatever="<%= username%>" style="z-index: 1;">
                     Edit profile
                   </button>
+                  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel" style="color: #000;">Edit Your Profile</h5>
+                          <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          <form>
+                            <div class="mb-3">
+                              <label for="recipient-name" class="col-form-label">Change username</label>
+                              <input type="text" class="form-control" id="recipient-name" />
+                            </div>
+                            <div class="mb-3">
+                              <label for="recipient-name" class="col-form-label">Change email-Id</label>
+                              <input type="text" class="form-control" id="recipient-name" value="<%= email%>" />
+                            </div>
+                            <div class="mb-3">
+                              <label for="recipient-name" class="col-form-label">Change contact number</label>
+                              <input type="text" class="form-control" id="recipient-name" value="<%= phonenumber%>" />
+                            </div>
+                          </form>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-outline-dark" data-mdb-dismiss="modal">Cancel</button>
+                          <button type="button" class="btn" style="color: #f94566;">Save Changes</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
                 </div>
                 <div class="ms-3" style="margin-top: 130px;">
-                  <h5>
+                  <h3>
                     <%= name %>
-                  </h5>
+                  </h3>
                   <p>
                     <%= username %>
                   </p>
@@ -47,7 +80,7 @@
               <div class="p-4 text-black" style="background-color: #f8f9fa;">
                 <div class="d-flex justify-content-end text-center py-1">
                   <div>
-                    <p class="mb-1 h5">
+                    <p class="mb-2 h3">
                       <%= email%>
                     </p>
                     <p class="small text-muted mb-0">Email Id</p>
@@ -56,7 +89,7 @@
               </div>
               <div class="card-body p-4 text-black">
                 <div class="mb-5">
-                  <p class="lead fw-normal mb-1">About</p>
+                  <p class="lead h3 fw-normal mb-1">About</p>
                   <div class="p-4" style="background-color: #f8f9fa;">
                     <p class="font-italic mb-1">Web Developer</p>
                     <p class="font-italic mb-1">Lives in India</p>
@@ -69,7 +102,7 @@
                 <div class="row g-2">
                   <%if(images) { images.forEach(function (image){ %>
                     <div class="row g-2">
-                      <div class="col">
+                      <div class="col flex">
                         <img class="w-100 rounded-3" src="data:image/<%=image.image.contentType%>;base64,
                               <%=image.image.data.toString('base64')%>">
                       </div>
@@ -110,6 +143,24 @@
             })
           })
         }
+
+        const exampleModal = document.getElementById('exampleModal');
+exampleModal.addEventListener('show.mdb.modal', (e) => {
+  // Button that triggered the modal
+  const button = e.relatedTarget;
+  // Extract info from data-mdb-* attributes
+  const recipient = button.getAttribute('data-mdb-whatever');
+  // If necessary, you could initiate an AJAX request here
+  // and then do the updating in a callback.
+  //
+  // Update the modal's content.
+  const modalTitle = exampleModal.querySelector('.modal-title');
+  const modalBodyInput = exampleModal.querySelector('.modal-body input');
+
+  modalTitle.textContent = `Edit Your Profile`;
+  modalBodyInput.value = recipient;
+})
+
       </script>
 </body>
 
