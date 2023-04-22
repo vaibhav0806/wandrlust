@@ -55,7 +55,7 @@ router.get("/", (req, res) => {
       }
     }).populate("author");
   } else {
-    console.log("Only Admin can open this page.");
+    res.redirect("admin/login");
   }
 });
 
