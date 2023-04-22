@@ -11,11 +11,12 @@ router.post("/signin", async (req, res) => {
   const adminUser = await AdminModel.findOne({
     username: req.body.username,
   });
-  if (!adminUser) {
+  if (!adminUser.username) {
     return next(createError(404, "Admin not found!"));
   }
   if (adminUser.password === req.body.password) {
     admin.isAdmin = true;
+    admin.username = adminUser.username;
   }
   console.log("Admin login");
   res.redirect("/admin");
@@ -34,7 +35,7 @@ router.get("/", (req, res) => {
             console.log(err);
             res.status(500).send({ message: `An error occurred ${err}` });
           } else {
-            if (session.isLoggedIn) {
+            if (admin.isAdmin) {
               res.render("admin", {
                 users: users,
                 images: images,
@@ -54,7 +55,7 @@ router.get("/", (req, res) => {
       }
     }).populate("author");
   } else {
-    console.log("Only Admin can open this page ");
+    console.log("Only Admin can open this page.");
   }
 });
 
