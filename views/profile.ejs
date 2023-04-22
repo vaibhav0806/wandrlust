@@ -44,24 +44,28 @@
                           <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                          <form>
+                          <form id="editProfileform" method="post" action="/editprofile">
                             <div class="mb-3">
                               <label for="recipient-name" class="col-form-label">Change username</label>
-                              <input type="text" class="form-control" id="recipient-name" />
+                              <input type="text" class="form-control" id="recipient-name" name="username" />
                             </div>
                             <div class="mb-3">
                               <label for="recipient-name" class="col-form-label">Change email-Id</label>
-                              <input type="text" class="form-control" id="recipient-name" value="<%= email%>" />
+                              <input type="text" class="form-control" id="recipient-name" name="email" value="<%= email%>" />
                             </div>
                             <div class="mb-3">
                               <label for="recipient-name" class="col-form-label">Change contact number</label>
-                              <input type="text" class="form-control" id="recipient-name" value="<%= phonenumber%>" />
+                              <input type="text" class="form-control" id="recipient-name" name="phonenumber" value="<%= phonenumber%>" />
+                            </div>
+                            <div class="mb-3" hidden>
+                              <label for="recipient-name" class="col-form-label">Object Id</label>
+                              <input value="<%= id %>" type="text" class="form-control" id="recipient-name" name="id" />
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-outline-dark" data-mdb-dismiss="modal">Cancel</button>
+                              <input type="submit" class="btn" style="color: #f94566;"></input>
                             </div>
                           </form>
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-outline-dark" data-mdb-dismiss="modal">Cancel</button>
-                          <button type="button" class="btn" style="color: #f94566;">Save Changes</button>
                         </div>
                       </div>
                     </div>
@@ -89,7 +93,7 @@
               </div>
               <div class="card-body p-4 text-black">
                 <div class="mb-5">
-                  <p class="lead h3 fw-normal mb-1">About</p>
+                  <p class="lead h3 fw-normal mb-1">Bio</p>
                   <div class="p-4" style="background-color: #f8f9fa;">
                     <p class="font-italic mb-1">Web Developer</p>
                     <p class="font-italic mb-1">Lives in India</p>
