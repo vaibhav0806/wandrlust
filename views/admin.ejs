@@ -62,7 +62,7 @@
                             </div>
 
                             <!-- Media -->
-                            <div class="bg-image hover-overlay ripple rounded-0" data-mdb-ripple-color="light">
+                            <div class="bg-image hover-overlay" data-mdb-ripple-color="light">
                                 <img src="data:image/<%=image.image.contentType%>;base64,
                         <%=image.image.data.toString('base64')%>" class="w-100" />
                                 <a href="#!">
@@ -111,12 +111,12 @@
                                     <%= user.phone %>
                             </p>
                             <% if(!user.blocked){ %>
-                                <a href="" onclick="blockUser('<%= user._id %>')" class="btn btn-dark">Block this
-                                    User</a>
+                                <button onclick="blockUser('<%= user._id %>')" class="btn btn-light">Block this
+                                    User</button>
                                 <% } else {%>
-                                    <a href="" onclick="UnblockUser('<%= user._id %>')" class="btn btn-dark">UnBlock
+                                    <button onclick="UnblockUser('<%= user._id %>')" class="btn btn-dark">UnBlock
                                         this
-                                        User</a>
+                                        User</button>
                                     <% } %>
                         </div>
                     </div>

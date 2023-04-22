@@ -204,6 +204,7 @@ router.get("/profile", (req, res) => {
           username: session.username,
           phonenumber: session.phonenumber,
           age: session.age,
+          id: session._id,
         });
       } else {
         res.redirect("/");
@@ -303,15 +304,17 @@ router.get("/budget", (req, res) => {
   }
 });
 
-router.get("*", (req, res) => {
-  res.render("error", {
-    name: session.name.substring(0, session.name.indexOf(" "))
-      ? session.name.substring(0, session.name.indexOf(" "))
-      : session.name,
-    isLoggedIn: session.isLoggedIn,
-    email: session.email,
-    username: session.username,
+router.post("/editprofile", async (req, res) => {
+  console.log(req.body);
+  const updated = await UserModel.findByIdAndUpdate(req.body.id, {
+    $set: {
+      username: req.body.username,
+      email: req.body.email,
+      phone: req.body.phonenumber,
+    },
   });
+  console.log(updated);
+  res.redirect("/profile");
 });
 
 module.exports = router;
