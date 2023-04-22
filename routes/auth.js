@@ -303,4 +303,15 @@ router.get("/budget", (req, res) => {
   }
 });
 
+router.get("*", (req, res) => {
+  res.render("error", {
+    name: session.name.substring(0, session.name.indexOf(" "))
+      ? session.name.substring(0, session.name.indexOf(" "))
+      : session.name,
+    isLoggedIn: session.isLoggedIn,
+    email: session.email,
+    username: session.username,
+  });
+});
+
 module.exports = router;
