@@ -56,7 +56,9 @@
                                     <a href="" class="text-muted d-block"
                                         style="margin-top: -6px; text-decoration: none;">
                                         <small>
-                                            <%= image.createdAt.toLocaleString("en-IN", {timeZone: 'Asia/Kolkata', weekday: "long", year: "numeric", month: "long", day: "numeric", hour: "numeric", minute: "numeric", second: "numeric"}) %>
+                                            <%= image.createdAt.toLocaleString("en-IN", {timeZone: 'Asia/Kolkata' ,
+                                                weekday: "long" , year: "numeric" , month: "long" , day: "numeric" ,
+                                                hour: "numeric" , minute: "numeric" , second: "numeric" }) %>
                                         </small>
                                     </a>
                                 </div>
@@ -72,7 +74,7 @@
                             style="margin: 1rem;">
                             <img src="data:image/<%=image.image.contentType%>;base64,
                         <%=image.image.data.toString('base64')%>" class="w-100" style="border-radius: 1rem;">
-                            <a href="#!">
+                            <a>
                                 <div class="mask" style="background-color: rgba(251, 251, 251, 0.2)"></div>
                             </a>
                         </div>
@@ -115,13 +117,13 @@
             </section>
             <div>
                 <div class="card"
-                    style="width: 25rem; height: 25rem; border-radius: 1rem; padding: 1rem; position: fixed; right: 0; top: 0; margin-top: 7rem; margin-right: 5rem;">
+                    style="width: 25rem; height: 25rem; border-radius: 1rem; padding: 1rem; position: fixed; right: 0; top: 0; margin-top: 7rem; margin-right: 1rem;">
                     <div style="font-size: 1rem; font-weight: bold;">
                         Suggested people
                     </div>
                     <div class="input-group rounded" style="padding-top: 1rem; padding-bottom: 1rem">
-                        <input type="search" class="form-control rounded" placeholder="Search User" aria-label="Search"
-                            aria-describedby="search-addon" />
+                        <input id="search-input" type="search" class="form-control rounded" placeholder="Search User"
+                            aria-label="Search" aria-describedby="search-addon" />
                         <span class="input-group-text border-0" id="search-addon">
                             <i class="fas fa-search"></i>
                         </span>
@@ -158,6 +160,7 @@
                                 </div>
                                 <% } %>
                                     <% }); %>
+
                     </div>
                 </div>
             </div>
@@ -166,6 +169,7 @@
         <!--Section: Newsfeed-->
         <%- include('partials/footer') %>
             <script>
+                console.log("11111");
                 const increaseLikes = async (imageId) => {
                     await fetch("/like", {
                         method: "put",
@@ -215,6 +219,8 @@
                     })
                     location.reload(true)
                 }
+                const searchInput = document.getElementById('search-input');
+
             </script>
 </body>
 
