@@ -388,6 +388,28 @@ router.get("/users", async (req, res) => {
   });
 });
 
+router.get("/chatHome", (req, res) => {
+  res.render("chatHome", {
+    name: session.name.substring(0, session.name.indexOf(" "))
+      ? session.name.substring(0, session.name.indexOf(" "))
+      : session.name,
+    isLoggedIn: session.isLoggedIn,
+    email: session.email,
+    username: session.username,
+  });
+});
+
+router.get("/chat", (req, res) => {
+  res.render("chat", {
+    name: session.name.substring(0, session.name.indexOf(" "))
+      ? session.name.substring(0, session.name.indexOf(" "))
+      : session.name,
+    isLoggedIn: session.isLoggedIn,
+    email: session.email,
+    username: session.username,
+  });
+});
+
 router.get("*", (req, res) => {
   res.render("error", {
     name: session.name.substring(0, session.name.indexOf(" "))
