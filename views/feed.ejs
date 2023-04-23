@@ -56,7 +56,7 @@
                                     <a href="" class="text-muted d-block"
                                         style="margin-top: -6px; text-decoration: none;">
                                         <small>
-                                            <%= image.createdAt.toUTCString() %>
+                                            <%= image.createdAt.toLocaleString("en-IN", {timeZone: 'Asia/Kolkata', weekday: "long", year: "numeric", month: "long", day: "numeric", hour: "numeric", minute: "numeric", second: "numeric"}) %>
                                         </small>
                                     </a>
                                 </div>
