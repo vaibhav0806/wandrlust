@@ -384,6 +384,21 @@ router.get("/users", async (req, res) => {
   });
 });
 
+router.post("/filter", (req, res) => {
+  UserModel.find({}, (err, users) => {
+    if (err) {
+      console.log(err);
+    } else {
+      if (session.isLoggedIn) {
+        res.send({
+          status: 200,
+          users: users,
+        });
+      }
+    }
+  });
+});
+
 router.get("*", (req, res) => {
   res.render("error", {
     name: session.name.substring(0, session.name.indexOf(" "))
