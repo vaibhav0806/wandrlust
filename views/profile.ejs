@@ -21,16 +21,16 @@
 
 <body>
   <%- include('partials/navbar.ejs', { name: name, isLoggedIn: isLoggedIn, email: email}); %>
-    <section class="h-100 gradient-custom-2">
-      <div class="container py-5 h-100">
+    <section class="h-100 gradient-custom-2">3      <div class="container py-5 h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
-          <div class="col col-lg-9 col-xl-7 w-100">
+          <div class="col col-lg-9 col-xl-7 w-100"  style="padding-top: 2rem;">
             <div class="card">
-              <div class="rounded-top text-white d-flex flex-row" style="background-color: #000; height:200px;">
+              <div class="rounded-top text-white d-flex flex-row" style="background-color: #000; height:210px;">
                 <div class="ms-4 mt-5 d-flex flex-column" style="width: 150px;">
                   <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-1.webp"
                     alt="Generic placeholder image" class="img-fluid img-thumbnail mt-4 mb-2"
-                    style="width: 150px; z-index: 1">
+                    style="width: 150px; z-index: 1;">
+                    <br>
                   <button type="button" class="btn btn-dark " data-mdb-toggle="modal" data-mdb-target="#exampleModal"
                     data-mdb-whatever="<%= username%>" style="z-index: 1;">
                     Edit profile
