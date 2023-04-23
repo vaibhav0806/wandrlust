@@ -190,10 +190,6 @@ router.get("/post", (req, res) => {
 });
 
 router.get("/profile", (req, res) => {
-  console.log("Followings ", session.following);
-  console.log("Followers", session.followers);
-  console.log("Following Length", session.following.length);
-  console.log("Followers Length", session.followers.length);
   ImageModel.find({ author: session._id }, (err, images) => {
     if (err) {
       console.log(err);
@@ -407,6 +403,21 @@ router.get("/chat", (req, res) => {
     isLoggedIn: session.isLoggedIn,
     email: session.email,
     username: session.username,
+  });
+});
+
+router.post("/filter", (req, res) => {
+  UserModel.find({}, (err, users) => {
+    if (err) {
+      console.log(err);
+    } else {
+      if (session.isLoggedIn) {
+        res.send({
+          status: 200,
+          users: users,
+        });
+      }
+    }
   });
 });
 
