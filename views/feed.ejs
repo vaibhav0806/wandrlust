@@ -28,16 +28,16 @@
                             <%= email %>
                         </div>
                         <input id="ownerId" hidden value="<%= _id %>">
-
                     </div>
                 </div>
+                <a style="text-decoration: none;" href="/post">
+                    <button
+                        style="font-size: 1.5rem;color: white; font-weight: bold; background-color: #f94566; width: 20rem; height: 3rem; border-radius: 1rem; border: none;">
+                        Create Post
+                    </button>
+                </a>
             </div>
-            <a style="text-decoration: none;" href="/post">
-                <button
-                    style="font-size: 1.5rem;color: white; font-weight: bold; background-color: #f94566; width: 20rem; height: 3rem; border-radius: 1rem; border: none;">
-                    Create Post
-                </button>
-            </a>
+
         </div>
         <section style="display: flex; flex-direction: column; gap: 2rem; padding: 8rem; align-items: center;">
             <% images.forEach(function (image){ %>
