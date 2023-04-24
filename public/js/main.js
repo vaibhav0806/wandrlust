@@ -57,11 +57,13 @@ function outputMessage(message) {
   p.classList.add('meta');
   p.innerText = message.username;
   p.style.fontWeight = "bold"
+  p.style.color = "white"
   p.innerHTML += ` <span">@ ${message.time}</span>`;
   div.appendChild(p);
   const para = document.createElement('p');
   para.classList.add('text');
   para.innerText = message.text;
+  para.style.color = "white"
   div.appendChild(para);
   document.querySelector('.chat-messages').appendChild(div);
 }
