@@ -85,6 +85,12 @@ router.put("/unBlockUserAdmin", async (req, res) => {
   }
 });
 
+router.get("/logout", (req, res) => {
+  console.log("Logout");
+  admin.isAdmin = false;
+  res.redirect("/");
+});
+
 router.get("/login", (req, res) => {
   res.render("adminLogin");
 });

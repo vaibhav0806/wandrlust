@@ -21,19 +21,27 @@
 <body>
     <!--Section: Newsfeed-->
     <div>
-        <ul class="nav nav-tabs mb-3" id="myTab0" role="tablist">
-            <li class="nav-item" role="presentation">
-                <button class="nav-link active" id="home-tab0" data-mdb-toggle="tab" data-mdb-target="#home0"
-                    type="button" role="tab" aria-controls="home" aria-selected="true">
-                    Posts
+        <ul class="nav nav-tabs mb-3" id="myTab0" role="tablist"
+            style="display: flex; justify-content: space-between; align-items: center;">
+            <div style="display: flex;">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="home-tab0" data-mdb-toggle="tab" data-mdb-target="#home0"
+                        type="button" role="tab" aria-controls="home" aria-selected="true">
+                        Posts
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="profile-tab0" data-mdb-toggle="tab" data-mdb-target="#profile0"
+                        type="button" role="tab" aria-controls="profile" aria-selected="false">
+                        Users
+                    </button>
+                </li>
+            </div>
+            <a href="/admin/logout" style="text-decoration: none;">
+                <button style="margin-right: 1rem; height: 70%;color: white; background-color: black;">
+                    Logout Admin
                 </button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="nav-link" id="profile-tab0" data-mdb-toggle="tab" data-mdb-target="#profile0"
-                    type="button" role="tab" aria-controls="profile" aria-selected="false">
-                    Users
-                </button>
-            </li>
+            </a>
         </ul>
         <div class="tab-content" id="myTabContent0">
             <div class="tab-pane fade show active" id="home0" role="tabpanel" aria-labelledby="home-tab0">
@@ -120,18 +128,14 @@
                                     <%= user.phone %>
                             </p>
                             <% if(!user.blocked){ %>
-                                <a href="/admin" class="btn-dark"
-                                    style="text-decoration: none; width: 9rem;height: 2rem;text-align: center;"
-                                    onclick="blockUser('<%= user._id %>')" type="submit">Block
-                                    this
-                                    User</a>
+                                <a href="/admin"
+                                    style="text-decoration: none; width: 9rem;height: 2rem;text-align: center;color: white; background-color: black;"
+                                    onclick="blockUser('<%= user._id %>')" type="submit">Block</a>
                                 <% } else {%>
-                                    <a href="/admin" class="btn-dark btn-outline-light"
-                                        style="text-decoration: none; width: 9rem; height: 2rem; text-align: center;"
+                                    <a href="/admin"
+                                        style="text-decoration: none; width: 9rem; height: 2rem; text-align: center;color: white; background-color: black;"
                                         type="submit" onclick="UnblockUser('<%= user._id %>')"
-                                        class="btn btn-dark">UnBlock
-                                        this
-                                        User</a>
+                                        class="btn btn-dark">UnBlock</a>
                                     <% } %>
                         </div>
                     </div>
@@ -141,6 +145,7 @@
 
     </div>
     <script>
+
         const deletePost = async (imageId) => {
             await fetch("admin/deletePostAdmin", {
                 method: "delete",
