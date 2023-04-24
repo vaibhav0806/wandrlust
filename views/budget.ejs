@@ -85,7 +85,6 @@
                 <select class="browser-default">
                     <option value="" disabled selected>Choose Income Type</option>
                     <option value="active">Active</option>
-                    <option value="portfolio">Portfolio</option>
                     <option value="passive">Passive</option>
                 </select>
 
@@ -116,7 +115,7 @@
                 <select class="browser-default" id="expenseCat">
                     <option value="" disabled selected>Choose Expense Category</option>
                     <option value="food">Food</option>
-                    <option value="loan">Loan</option>
+                    <option value="loan">EMI</option>
                     <option value="rent">Rent</option>
                     <option value="retail">Retail Non-Food</option>
                     <option value="insurance">Insurance</option>
@@ -137,15 +136,16 @@
                     <option value="doctorsVisit" data-cat="healthcare">Doctor's Visit</option>
                     <option value="prescriptions" data-cat="healthcare">Prescriptions</option>
                     <option value="mortgage" data-cat="loan">Mortgage</option>
-                    <option value="creditCard" data-cat="loan">Credit Card</option>
-                    <option value="carPayment" data-cat="loan">Car Payment</option>
+                    <option value="creditCard" data-cat="loan">Bike</option>
+                    <option value="carPayment" data-cat="loan">Car</option>
                     <option value="rent" data-cat="rent">Rent</option>
-                    <option value="retail" data-cat="retail">Retail Non-Food</option>
+                    <option value="clothes" data-cat="retail">Clothes</option>
+                    <option value="toiletries" data-cat="retail">Toiletries</option>
                     <option value="netflix" data-cat="subscriptions">Netflix</option>
                     <option value="internet" data-cat="subscriptions">Internet</option>
-                    <option value="tv" data-cat="subscriptions">TV</option>
+                    <option value="tv" data-cat="subscriptions">Disney +</option>
                     <option value="amazonPrime" data-cat="subscriptions">Amazon Prime</option>
-                    <option value="amazonMusic" data-cat="subscriptions">Amazon Music</option>
+                    <option value="amazonMusic" data-cat="subscriptions">Hulu</option>
                     <option value="water" data-cat="utilities">Water</option>
                     <option value="gas" data-cat="utilities">Gas</option>
                 </select>
@@ -232,6 +232,7 @@
 
             currentIncObj["category"] = $(this).find("select").find(":selected").text();
             currentIncObj["amount"] = $("#amount").val();
+            console.log($("#amount").val())
             currentIncObj["description"] = $("#description").val();
             currentIncObj["id"] = Math.floor(Math.random() * 50000 + 10000);
 
