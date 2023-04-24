@@ -37,10 +37,9 @@
         </ul>
         <div class="tab-content" id="myTabContent0">
             <div class="tab-pane fade show active" id="home0" role="tabpanel" aria-labelledby="home-tab0">
-                <section
-                    style="display: flex; flex-direction: row; flex-wrap: wrap; flex: 0 1; gap: 2rem; padding: 5rem; justify-content: center;">
+                <section style="display: flex; flex-direction: column; gap: 2rem; align-items: center;">
                     <% images.forEach(function (image){ %>
-                        <div class="card" style="max-width: 30rem">
+                        <div class="card" style="max-width: 40rem; border-radius: 1rem;">
                             <div class="card-body">
                                 <!-- Data -->
                                 <div class="d-flex mb-3">
@@ -51,30 +50,31 @@
                                     <div>
                                         <a href="" class="text-dark mb-0" style="text-decoration: none;">
                                             <strong>
-                                                <%= image.author.name %>
+                                                <%= image.author.username %>
                                             </strong>
                                         </a>
                                         <a href="" class="text-muted d-block"
                                             style="margin-top: -6px; text-decoration: none;">
                                             <small>
-                                                <%= image.createdAt.toUTCString() %>
+                                                <%= image.createdAt.toLocaleString("en-IN", {timeZone: 'Asia/Kolkata' ,
+                                                    weekday: "long" , year: "numeric" , month: "long" , day: "numeric" ,
+                                                    hour: "numeric" , minute: "numeric" , second: "numeric" }) %>
                                             </small>
                                         </a>
                                     </div>
                                 </div>
                                 <!-- Description -->
-                                <div>
-                                    <p>
-                                        <%= image.description %>
-                                    </p>
+                                <div style="font-weight: 500;">
+                                    <%= image.description %>
                                 </div>
                             </div>
 
                             <!-- Media -->
-                            <div class="bg-image hover-overlay" data-mdb-ripple-color="light">
+                            <div class="bg-image hover-overlay ripple rounded-0" data-mdb-ripple-color="light"
+                                style="margin: 1rem;">
                                 <img src="data:image/<%=image.image.contentType%>;base64,
-                        <%=image.image.data.toString('base64')%>" class="w-100" />
-                                <a href="#!">
+                                <%=image.image.data.toString('base64')%>" class="w-100" style="border-radius: 1rem;">
+                                <a>
                                     <div class="mask" style="background-color: rgba(251, 251, 251, 0.2)"></div>
                                 </a>
                             </div>

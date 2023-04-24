@@ -1,44 +1,44 @@
-body {
-  background: #fff;
+.budget-app {
+  margin-top: -7px;
 }
 
-.error {
-  background-color: #e57373;
-  color: #fff;
+.card-panel {
+  padding: 20px 10px;
 }
 
-.success {
-  background-color: #4db6ac;
-  color: #fff;
+.budget-header h5 {
+  margin: 0;
 }
 
-#message {
+.budget-plus {
   text-align: center;
-  padding-top: 3px;
-  vertical-align: middle;
+  background: #fffdfd;
+  width: 20px;
 }
 
-input {
-  padding: 10px 5px;
-  font-size: 1em;
-}
-
-#submit-button {
-  background-color: #211d1e;
-  color: #fff;
-}
-
-i {
-  color: rgb(27, 25, 25);
-}
-
-h2 {
+.budget-minus {
   text-align: center;
-  margin: 40px;
-  font-family: "Abril Fatface", cursive;
-  color: #171414;
+  background: #ffb6a9;
+  width: 20px;
 }
 
-.cost {
-  color: #b71c1c;
+.remove-row {
+  width: 20px;
+}
+
+.remove-row a {
+  color: tomato;
+}
+footer {
+  background-color: #1c1c1c;
+  height: 20vh;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+}
+.text-light {
+  color: rgba(239, 235, 220, 0.81);
+  font-size: 2.5rem;
+  margin-top: 3rem;
+  text-align: center;
 }
