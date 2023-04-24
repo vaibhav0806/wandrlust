@@ -145,7 +145,41 @@
 
     </div>
     <script>
+        const deletePost = async (imageId) => {
+            await fetch("admin/deletePostAdmin", {
+                method: "delete",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    imageId
+                })
+            })
+        }
 
+        const blockUser = async (userId) => {
+            await fetch("admin/blockUserAdmin", {
+                method: "put",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    userId
+                })
+            })
+        }
+
+        const UnblockUser = async (userId) => {
+            await fetch("admin/unBlockUserAdmin", {
+                method: "put",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    userId
+                })
+            })
+        }
         
     </script>
     <!--Section: Newsfeed-->
