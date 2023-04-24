@@ -9,7 +9,6 @@ const ImageModel = require("../Models/images");
 const UserModel = require("../Models/user");
 const path = require("path");
 const fs = require("fs");
-const { unsubscribe } = require("./auth");
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {

@@ -3,518 +3,316 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>CodePen - To-do List | Css3 &amp; jQuery</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css' rel='stylesheet' />
-    <link href="https://fonts.googleapis.com/css?family=Archivo+Narrow|Montserrat" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.css" rel='stylesheet'
-        type='text/css' />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <title>To do list</title>
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans:400,700" rel="stylesheet">
     <link rel="stylesheet" href="/PageCss/todo.css">
     <link rel="stylesheet" href="/PageCss/body.css">
-
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 </head>
 
 <body>
-    <!-- partial:index.partial.html -->
+
     <%- include('partials/navbar.ejs', { name: name, isLoggedIn: isLoggedIn, email: email}); %>
 
-        <div class='bg'>
-            <div class='todo'>
-                <div class="oppener">
-                    <span class="button-overlay">
-                        <button id="open_todo"><i class="fa fa-plus"></i>
-                        </button></span>
-                </div>
-                <div id="overlay"></div>
-                <div id="card-main">
-
-                    <button id='close-icon'><span class="close" title="Close">&times;</span></button>
-
-                    <div class='card-content'>
-
-                        <div class='test'>
-                            <label>Task</label>
-                            <input id='title' type="text" autocomplete="off" spellcheck="false" maxlength="10"
-                                placeholder="e.g. Lunch, Meeting, Party..">
-                            <span data-count='title' class='textCounter'></span>
-                            <span class='notice'></span>
-                        </div>
-                        <div class='test'>
-                            <label>Place</label>
-                            <input id='location' type="text" maxlength="10"
-                                placeholder="e.g. Home, Supermarket, Library..">
-                            <span data-count='location' class='textCounter'></span>
-                            <span class='notice'></span>
-                        </div>
-
-                        <div class='test'>
-                            <label>Note</label>
-                            <input id='description' type="text" maxlength="50" placeholder="e.g. hangout with dudes..">
-                            <span data-count='description' class='textCounter'></span>
-                        </div>
-                    </div>
-                    <div class='card-content02'>
-                        <div class='set-priority'>
-                            <h3>Set Time</h3>
-                            <input type='time'>
-                        </div>
-
-
-                        <div class='set-priority'>
-                            <h3>Set date</h3>
-                            <input id='datepicker' placeholder='dd/mm/yyyy' readonly>
-                        </div>
-
-                        <div class='set-priority'>
-                            <h3>Notify Me</h3>
-
-                            <input id="tmp" type="checkbox">
-                            <label for="tmp" class="notification">
-                                <span class="left"><i class="fa fa-bell-o" aria-hidden="true"></i></span>
-                                <span class="right"><i class="fa fa-bell-slash-o" aria-hidden="true"></i></span>
-                            </label>
-
-                        </div>
-                    </div>
-                    <button id='submit' role="button"><i class="fa fa-check"></i>
-                        <span class='ripple'></span>
-                    </button>
-
-                </div>
-
-                <div class="head">
-                    <div class="head-overlay"></div>
-                    <div class="search-cont">
-                        <button class="icon"><span class='ripple'></span></button>
-                        <input type="search" id="search" maxlength="20" disabled='disabled'
-                            placeholder="No tasks so far">
-                    </div>
-                    <div class="date-container">
-                        <span class='t-day'></span>
-                        <span class="fulldate">
-                            <span class="day"></span>
-                            <span class="date"></span>
-                            <span class="timing"></span>
-                        </span>
-                    </div>
-                    <div class='task-info'>
-                        <span class='counter'>No Tasks Pending</span>
-                    </div>
-                </div>
-                <div class="list-container">
-                    <div class="pre-loading">
-                        <div class='simulate-container'>
-                            <div class="simulatepost">
-                                <div class="circle"></div>
-
-                                <div class="right-side">
-                                    <div class="top-line"></div>
-                                    <div class="center-line"></div>
-                                    <div class="bottom-line"></div>
-                                </div>
-                            </div>
-                            <div class="sp_02"></div>
-                            <div class="sp_03"></div>
-                            <div class="sp_04"></div>
-                            <div class="sp_05"></div>
-                        </div>
-                        <div class="main-cont">
-                            <i class="fa fa-signal"></i>
-                            <h1>No tasks for today</h1>
-                            <h3>Enjoy your <span class='wel-day'></span></h3>
-                        </div>
-                    </div>
-                    <ul class="list">
-
-                    </ul>
-                </div>
-                <div class="main-message">
-                    <div class="message">
-                        <h3>Delete Task?</h3>
-                        <p></p>
-                    </div>
-                    <div class="answer">
-                        <button id='no'>Discard</button>
-                        <button id='yes'>Confirm</button>
-
-                    </div>
-                    <svg class="circular" viewBox="25 25 50 50">
-                        <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2"
-                            stroke-miterlimit="10" />
-                    </svg>
-
-                </div>
+        <div class="undo">
+            Task deleted
+            <div>
+                <span class="fa fa-undo"></span>
+                Undo
             </div>
         </div>
-        <div class='credit-list'>
+
+        <div class="wrapper">
+
+
+            <div class="main">
+                <div class="header">
+                    <h1>Your Todo List<span>By WandrLust</span></h1>
+                </div>
+
+
+                <ul id="sortable">
+                    <li style="display:none">
+                        <span class="priority-indicator"></span>
+                        <div class="dragger">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+                                <circle cy="7" cx="9.5" r="1" fill="#999"></circle>
+                                <circle cy="7" cx="14" r="1" fill="#999"></circle>
+                                <circle cy="12.5" cx="9.5" r="1" fill="#999"></circle>
+                                <circle cy="12.5" cx="14" r="1" fill="#999"></circle>
+                                <circle cy="18" cx="9.5" r="1" fill="#999"></circle>
+                                <circle cy="18" cx="14" r="1" fill="#999"></circle>
+                            </svg>
+                        </div>
+                        <input type="checkbox" />
+                        <label>
+                            <div class="checkbox"><span class="fa fa-check"></span></div>
+                            <span class="item-name">First-aid kit </span>
+                            <input type="text">
+                        </label>
+                        <div class="actions">
+                            <span class="fa fa-dot-circle-o prio-btn"></span>
+                            <span class="fa fa-pen"></span>
+                            <span class="fa fa-trash"></span>
+                        </div>
+                    </li>
+
+                    <li class="checked">
+                        <span class="priority-indicator"></span>
+                        <div class="dragger">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+                                <circle cy="7" cx="9.5" r="1" fill="#999"></circle>
+                                <circle cy="7" cx="14" r="1" fill="#999"></circle>
+                                <circle cy="12.5" cx="9.5" r="1" fill="#999"></circle>
+                                <circle cy="12.5" cx="14" r="1" fill="#999"></circle>
+                                <circle cy="18" cx="9.5" r="1" fill="#999"></circle>
+                                <circle cy="18" cx="14" r="1" fill="#999"></circle>
+                            </svg>
+                        </div>
+                        <input type="checkbox" id="1" checked />
+                        <label for="1">
+                            <div class="checkbox">
+                                <span class="fa fa-check"></span>
+                            </div>
+                            <span class="item-name">First-aid kit </span>
+                            <input type="text">
+                        </label>
+                        <div class="actions">
+                            <span class="fa fa-dot-circle-o prio-btn"></span>
+                            <span class="fa fa-pen"></span>
+                            <span class="fa fa-trash"></span>
+                        </div>
+                    </li>
+
+                    <li class="priority priority2">
+                        <span class="priority-indicator"></span>
+                        <div class="dragger">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+                                <circle cy="7" cx="9.5" r="1" fill="#999"></circle>
+                                <circle cy="7" cx="14" r="1" fill="#999"></circle>
+                                <circle cy="12.5" cx="9.5" r="1" fill="#999"></circle>
+                                <circle cy="12.5" cx="14" r="1" fill="#999"></circle>
+                                <circle cy="18" cx="9.5" r="1" fill="#999"></circle>
+                                <circle cy="18" cx="14" r="1" fill="#999"></circle>
+                            </svg>
+                        </div>
+                        <input type="checkbox" id="2" />
+                        <label for="2">
+                            <div class="checkbox"><span class="fa fa-check"></span></div>
+                            <span class="item-name">Water bottles</span>
+                            <input type="text">
+                        </label>
+                        <div class="actions">
+                            <span class="fa fa-dot-circle-o prio-btn"></span>
+                            <span class="fa fa-pen"></span>
+                            <span class="fa fa-trash"></span>
+                        </div>
+                    </li>
+
+                    <li class="priority priority1">
+                        <span class="priority-indicator"></span>
+                        <div class="dragger">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+                                <circle cy="7" cx="9.5" r="1" fill="#999"></circle>
+                                <circle cy="7" cx="14" r="1" fill="#999"></circle>
+                                <circle cy="12.5" cx="9.5" r="1" fill="#999"></circle>
+                                <circle cy="12.5" cx="14" r="1" fill="#999"></circle>
+                                <circle cy="18" cx="9.5" r="1" fill="#999"></circle>
+                                <circle cy="18" cx="14" r="1" fill="#999"></circle>
+                            </svg>
+                        </div>
+                        <input type="checkbox" id="4" />
+                        <label for="4">
+                            <div class="checkbox"><span class="fa fa-check"></span></div>
+                            <span class="item-name">Tent</span>
+                            <input type="text">
+                        </label>
+                        <div class="actions">
+                            <span class="fa fa-dot-circle-o prio-btn"></span>
+                            <span class="fa fa-pen"></span>
+                            <span class="fa fa-trash"></span>
+                        </div>
+                    </li>
+
+
+                </ul>
+
+                <div class="add">
+                    <div class="add-txt">
+                        <div>
+                            <span class="fa fa-plus"></span>
+                        </div>
+                        <span class="txt">Add new</span>
+                        <input type="text">
+                    </div>
+
+                </div>
+
+            </div>
+
         </div>
-        <button class='list-order'><i class="fa fa-ellipsis-h"></i><span class='ripple'></span></button>
         <!-- partial -->
-        <script src='https://cdnjs.cloudflare.com/ajax/libs/snap.svg/0.5.1/snap.svg-min.js'></script>
-        <script src='https://code.jquery.com/jquery-3.2.1.js'></script>
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
         <script src='https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js'></script>
-        <script src="./script.js"></script>
+
         <script>
-            $(function () {
-                'use strict';
-                $("a[href='#']").click(function (e) {
-                    e.preventDefault();
-                });
-                $('.simulatepost').clone().css({
-                    'opacity': '.6'
-                }).appendTo('.sp_02');
-                $('.sp_02').clone().css({
-                    'opacity': '.6'
-                }).appendTo('.sp_03');
-                $('.sp_03').clone().css({
-                    'opacity': '.6'
-                }).appendTo('.sp_04');
+            var undo = false;
+            var list_item_to_undo;
+            var time_out;
 
-                $("#datepicker").datepicker();
+            $(document).ready(function () {
 
-                function update() {
-                    var d = new Date(),
-                        currentDay = d.getDate(),
-                        day = d.getDay(),
-                        month = d.getMonth(),
-                        year = d.getFullYear(),
-                        d_names = Array("Sunday", "Monday", "Tuesday",
-                            "Wednesday", "Thursday", "Friday", "Saturday"),
-                        m_names = new Array("January", "February", "March",
-                            "April", "May", "June", "July", "August", "September",
-                            "October", "November", "December"),
-                        hour = d.getHours(),
-                        minutes = d.getMinutes(),
-                        sup = "",
-                        a_p = "";
+                /*DELETE*/
+                $('body').on('click', '.fa-trash', function () {
 
-                    if (currentDay == 1 || currentDay == 21 || currentDay == 31) {
-                        sup = 'st';
-                    } else if (currentDay == 2 || currentDay == 22) {
-                        sup = 'nd';
-                    } else if (currentDay == 3 || currentDay == 23) {
-                        sup = 'rd';
-                    } else {
-                        sup = "th";
+                    if ($('.main ul li').hasClass("temp_deleted")) {
+                        $('.main ul li.temp_deleted').remove();
                     }
-                    if (hour < 12) {
-                        a_p = 'AM';
-                    } else {
-                        a_p = 'PM';
-                    }
-                    if (hour > 12) {
-                        hour = hour - 12;
-                    }
-                    if (hour == 0) {
-                        hour = 12;
-                    }
-                    if (hour < 10) {
-                        hour = '0' + hour;
-                    }
-                    if (minutes < 10) {
-                        minutes = '0' + minutes;
-                    }
-                    $('.date-container .t-day').html(currentDay + '<SUP>' + sup + '</SUP>');
-                    $('.fulldate .day').html(d_names[day]);
-                    $('.fulldate .date').html(m_names[month] + ', ' + year);
-                    $('.fulldate .timing').html(hour + '<span class="dot">:</span>' + minutes + ' ' + a_p);
-                    $('.pre-loading .wel-day').html(d_names[day]);
-                }
-                update();
-                setInterval(update, 1000);
 
-                function reseted() {
-                    $("#overlay, #card-main").fadeOut();
-                    $("#card-main input").val('').removeClass('wobble');
-                    $('input[type=text]').css('border-color', 'rgba(0,0,0,.12)');
-                    $('.notification').removeClass('checked');
-                    $('.notification .left').removeClass('animated-checked');
-                    $('.textCounter').html('');
-                    $('.notice').html('').removeClass('wobble');
-                    $('input[type=text]').prev('label').removeClass('effect');
+                    list_item_to_undo = $(this).parent().parent();
+                    var undo_time = 10000;
 
-                }
+                    list_item_to_undo.animate({
+                        height: "0px"
+                    }, 200, function () {
+                        $(this).addClass('temp_deleted').hide();
+                    });
 
-                $('input[type=text]').on('focus blur', function (e) {
-                    var $this = $(this),
-                        label = $this.prev('label');
-                    if (e.type === 'focus') {
+                    function_undo(list_item_to_undo, undo);
 
-                        if ($this.val() === '') {
-                            label.addClass('effect');
-                            $this.attr("placeholder");
+                    //undo
+                    $('.undo').addClass('active');
+
+                    clearTimeout(time_out);
+
+                    time_out = setTimeout(function () {
+                        $('.undo').removeClass('active');
+                        if (undo === false) {
+                            $('.main ul li.temp_deleted').remove();
                         }
-                    } else if (e.type === 'blur') {
-                        if ($this.val() === '') {
-                            label.removeClass('effect');
+                    }, undo_time);
 
-                        } else {
-                            label.addClass('effect');
-                        }
-                    }
+                });
+                /*DELETE*/
 
+
+                /*UNDO*/
+                $('.undo div').click(function () {
+                    undo = true;
+                    function_undo(list_item_to_undo, undo);
+                    $(this).parent().removeClass('active');
                 });
 
 
-
-                $('#tmp').on('click', function () {
-                    $('.notification').toggleClass('checked');
-                    $('.notification .left').toggleClass('animated-checked');
-                });
-
-                $('#search').on('keyup', function () {
-                    $.expr[":"].contains = function (a, i, m) {
-                        return (a.textContent || a.innerText || "").toUpperCase().indexOf(m[3].toUpperCase()) >= 0;
-                    };
-                    var filter = $(this).val();
-                    if (filter) {
-                        $('.list').find(".listed01:not(:contains(" + filter + "))").closest('li').fadeTo('slow', 0.3);
-                        $('.list').find(".listed01:contains(" + filter + ")").closest('li').fadeTo('slow', 1);
-                    } else {
-                        $('.list').find("li").fadeTo('slow', 1);
-                    }
-                });
-
-                $('input[type=text]').on('keyup', function () {
-                    var maxLength = $(this).attr('maxlength'),
-                        textLength = $(this).val().length,
-                        remText = (maxLength - textLength),
-                        moc = $(this).next('.textCounter');
-
-                    if (remText == 0) {
-                        moc.css('color', '#df4a32');
-                    } else {
-                        moc.css('color', 'initial');
-                    }
-                    if (textLength == 0) {
-                        moc.fadeOut();
-                    } else {
-                        moc.fadeIn().html(remText + ' W/R');
-                    }
-                });
-
-                $('#title, #location').keydown(function (e) {
-                    var key = e.keyCode;
-                    var notice = 'Only Letters (aA-zZ)';
-                    if (e.shiftKey || e.ctrlKey || e.altKey || key == '9') {
-
-                        return true
-
-                    }
-                    if (!((key == 8) || (key == 32) || (key == 46) || (key >= 35 && key <= 40) || (key >= 65 && key <= 90))) {
-
-                        $(this).parent().find('.notice').html(notice).addClass('wobble');
-                        e.preventDefault();
-                    } else {
-                        $(this).parent().find('.notice').html('').removeClass('wobble');
-                    }
+                /*EDIT*/
+                $('body').on('click', '.fa-pen', function () {
+                    var current = $(this).parent().parent().find('span').text();
+                    $(this).parent().parent().find('input[type=text]').val(current).show().select();
                 });
 
 
+                $('body').on('keypress', '.main ul li input[type=text]', function (e) {
+                    if (e.which === 13) {
+                        //hide undo
+                        $('.undo').removeClass('active');
 
-
-                $('.icon').on('click', function () {
-                    $('.search-cont').toggleClass('togglesearch');
-                    $('input#search').toggleClass('togglesearchbackground');
-                });
-                $(document).mouseup(function (e) {
-                    var container = $('.search-cont')
-                    if (!container.is(e.target) && container.has(e.target).length === 0) {
-                        container.removeClass('togglesearch');
-                        $('input#search').removeClass('togglesearchbackground');
+                        var newvalue = $(this).val();
+                        $(this).parent().parent().find('label span.item-name').text(newvalue);
+                        $(this).hide();
+                        return false;    //<---- Add this line
                     }
                 });
 
-                $('#open_todo').on('click', function () {
-                    $('.counter').removeClass('numric-animated');
-                    $('#overlay, #card-main').fadeIn();
+                $(document).on('blur', 'input[type=text]', function () {
+                    $(this).hide();
+                });
+
+                /*ADD NEW*/
+                $('.add').click(function () {
+                    $(this).find('input[type=text]').val('Add new').show().select();
                 });
 
 
+                $('body').on('keypress', '.add input[type=text]', function (e) {
+                    if (e.which === 13) {
 
+                        //hide undo
+                        $('.undo').removeClass('active');
 
-                var counter = 0;
-                $('#submit').on('click', function () {
-                    counter++;
+                        var newvalue = $(this).val();
 
-                    var myTitle = $('#title').val(),
-                        myLocation = $('#location').val(),
-                        myDescription = $('#description').val(),
-                        myDate = $('input#datepicker').val(),
-                        myTime = $('input[type=time]').val(),
-                        showChar = 25,
-                        ellipsestext = "...";
-                    $('#card-main input').not(':input[type=checkbox]').each(function (e) {
+                        var clone = $(".main ul li:first").clone();
+                        clone.find('label span.item-name').text(newvalue);
 
-                        if ($(this).val() == '') {
-                            $(this).css('border-color', '#df4a32').addClass('wobble');
-                            e.preventDefault();
-                        }
+                        var random_num = Math.floor(Math.random() * 1000) + 1
+                        var id = newvalue.replace(/\s/g, '');
+                        var ids = id + random_num;
 
-                    });
-
-
-                    if (myDescription.length > showChar) {
-
-                        var c = myDescription.substr(0, showChar);
-                        var h = myDescription.substr(showChar, myDescription.length - showChar);
-                        var html = c + '<span class="moreellipses">' + ellipsestext + '</span><span class="morecontent"><span>' + h + '</span><a href="#" class="morelink"><svg class="icon-arrow-down" viewBox="0 0 32 32"><polygon points="28.2,6.1 16,18.3 3.8,6.1 0,9.9 16,25.9 32,9.9"></polygon></svg></a></span>';
-
-                    } else {
-                        html = myDescription
-                    }
-
-                    $('.morelink').click(function (e) {
-                        var hidden = $(e.target).closest('.morecontent');
-
-                        $(this).find('.icon-arrow-down').toggleClass('rotated');
-
-
-                        hidden.find('span').toggle();
-
-                    });
-                    $('.category p').html('queued').css({ 'background': 'rgba(0,0,0,0.3)' });
-                    if (counter > 0) {
-                        $('.list').prepend("<li><div class='listed'><div class='options'><a href='#' class='erase' title='Erase Task'></a><a href='#' class='min' title='Minimize'></a><a href='#' class='max' title='Maximize'></a></div><div class='category'><span></span><p>New</p></div><div class='listed01'><h3>" + myTitle + "<span class='at'> — in </span>" + myLocation + "</h3><span class='rem-status'>Reminder Mode: on</span><p class='paragraph'>" + html + "</p></div><div class='listed02'><span class='listed-date'>" + myDate + "</span><span class='listed-time'> at <b>" + myTime + "</b></span><span class='priority'><input type='radio' id='star1'><label for='star1'></label><input type='radio' id='star2'><label  for='star2'></label><input type='radio' id='star3'><label  for='star3'></label><span class='tolip'></span></span></div></div></li>");
-                        $('.pre-loading').hide();
-                        $('#search').prop('disabled', false);
-                        $('#search').attr('placeholder', 'Filter tasks by keywords ..');
-                        $('.counter').addClass('numric-animated');
-
-                    }
-                    reseted();
-
-                    $('.options .erase').click(function (event) {
-                        var title = $(event.target).closest('li').find('h3').text();
-                        $(' #overlay, .main-message').fadeIn();
-                        $('.message, .answer').css({
-                            'opacity': '1'
+                        clone.find('input').attr({
+                            id: ids
                         });
-                        $('.message p').html('This task <b>(' + title + ' )</b> will be deleted and you will no longer be able to find it.');
-                        $('.answer button').on('click', function (e) {
+                        clone.find('label').attr('for', ids);
+                        clone.find("input[type=checkbox]").prop('checked', false);
+                        clone.removeClass('priority priority1 priority2 checked');
+                        clone.show();
+                        clone.appendTo(".main ul");
 
-                            if ($('#yes').is(e.target)) {
-                                $('.circular').fadeIn();
-                                $('.message, .answer').animate({
-                                    opacity: '0'
-                                });
-
-                                setTimeout(function () {
-                                    $('#overlay, .main-message').fadeOut()
-                                    $('.circular').fadeOut();
-                                    $(event.target).closest('li').remove();
-
-                                    var co = $('.list li').length;
-                                    $('.counter').html(co + ' task(s) pending');
-
-                                    if (co == 0) {
-                                        $('.counter').html('No Tasks Pending');
-                                        $('.pre-loading').fadeIn();
-                                        $('#search').prop('disabled', true);
-                                        $('#search').attr('placeholder', 'No tasks so far');
-                                        $('#search').val('');
-                                    }
-                                }, 2500);
-                                clearTimeout()
-
-
-
-                            } else if ($('#no').is(e.target)) {
-                                $(' #overlay, .main-message').fadeOut();
-
-                            }
-
-                        })
-                    });
-
-                    $('.options .min').on('click', function (e) {
-                        var item = $(e.target).closest('li');
-                        var itm = $('.list').width();
-                        item.css({
-                            'right': itm - 16
-                        })
-                        $(this).css({
-                            'background': '#ddd'
-                        })
-                        item.find(' .max').css({
-                            'background': '#89cb5a'
-                        });
-
-                    });
-
-                    $('.options .max').click(function (e) {
-                        var item = $(e.target).closest('li')
-                        item.css({
-                            'right': 0
-                        })
-                        $(this).css({
-                            'background': '#ddd'
-                        })
-                        item.find(' .min').css({
-                            'background': '#f7bf67'
-                        });
-                    });
-
-
-                    $('.morelink').click(function (e) {
-                        var hidden = $(e.target).closest('.morecontent');
-
-                        $(this).find('.icon-arrow-down').toggleClass('rotated');
-
-
-                        hidden.find('span').toggle();
-
-                    });
-
-
-                    var co = $('.list li').length;
-                    $('.counter').html(co + ' Task(s) Pending');
-                });
-                $('#overlay').mouseup(function (e) {
-                    var container = $("#card-main, .main-message");
-                    if (!container.is(e.target) && container.has(e.target).length === 0) {
-                        $(".main-message").fadeOut();
-                        reseted();
+                        $('.add').trigger("click");
+                        return false;    //<---- Add this line
                     }
                 });
-                $('#close-icon').on('click', function () {
-                    reseted();
+
+
+
+                /*PRIORITY*/
+                $('body').on('click', '.main ul li .actions .prio-btn', function () {
+
+                    if ($(this).parent().parent().hasClass("priority2")) {
+
+                        $(this).parent().parent().addClass('reset').removeClass("priority priority1 priority2 ");
+
+                        return false;
+                    }
+
+                    if ($(this).parent().parent().hasClass("priority1")) {
+                        $(this).parent().parent().addClass("priority2");
+                    }
+
+                    $(this).parent().parent().addClass('priority priority1');
+
                 });
 
-                $('.credit-list').html('<div class="list-heading"><a class="avatar-50" href="https://www.facebook.com/Dani4Real" target="_blank"><span class="ova"></span><img src="https://goo.gl/aVijkX" ></a></div><div class="about-me"></div><ul><li><a href="https://www.facebook.com/uncle.oreo" target="_blank">Muhammad Khairy</a></li><li><a href="#">Rate the app</a></li><li><a href="#">Terms of use</a></li><li><a href="#">FAQ</a></li><li><a id="collapse" href="#">Collapse The bar</a></li></ul>');
 
-                $('#close-icon, .credit-list ul li a').append("<span class='ripple'></span>");
+                /*CLICK*/
+                $('body').on('change', '.main ul li input[type=checkbox]', function () {
+                    if ($(this).prop('checked')) {
+                        $(this).parent().addClass('checked');
+                    } else {
+                        $(this).parent().removeClass('checked');
+                    }
 
-                $('#collapse, .list-order').on('click', function () {
-                    $('.ova').toggleClass('animateme');
-                    $('.fa-ellipsis-h').toggleClass('ba');
-                    $('.credit-list').toggle();
                 });
 
-
-
-                $('#close-icon, #submit, .credit-list ul li a, .icon, .list-order').on('mouseup mousedown', function (e) {
-
-                    if (e.type === 'mouseup') {
-                        var ofs = $(this).offset(),
-                            dX = e.pageX - ofs.left,
-                            dY = e.pageY - ofs.top;
-                        $('.ripple').css({
-                            left: dX,
-                            top: dY
-                        });
-                        $(this).find('.ripple').addClass('click-effect');
-                    }
-                    if (e.type === 'mousedown') {
-                        $('.ripple').removeClass("click-effect");
-                    }
+                /*SORTABLE*/
+                $(function () {
+                    $(".main ul").sortable({
+                        animation: 100,
+                        delay: 150,
+                        cursor: 'move',
+                        handle: ".dragger",
+                        tolerance: "pointer",
+                        axis: 'y'
+                    });
+                    $("#sortable").disableSelection();
                 });
             });
+            function function_undo(list_item_to_undo, undo) {
+                if (undo === true) {
+                    list_item_to_undo.css('height', 'auto');
+                    list_item_to_undo.show();
+                    list_item_to_undo.removeClass('temp_deleted');
+                }
+            }
         </script>
         <%- include('partials/footer') %>
 </body>

@@ -1,5 +1,5 @@
 body {
-  background: #e0f7fa;
+  background: #fff;
 }
 
 .error {
@@ -11,10 +11,6 @@ body {
   background-color: #4db6ac;
   color: #fff;
 }
-
-/*#submit {
-  margin-top: 5px;
-}*/
 
 #message {
   text-align: center;
