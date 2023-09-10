@@ -7,11 +7,12 @@ const session = require("../Session/session");
 const register = async (req, res, next) => {
   try {
     const saltRounds = 10;
+    console.log(req.body);
     bcrypt.genSalt(saltRounds, (err, salt) => {
       bcrypt.hash(req.body.password, salt, async (err, hash) => {
         const newUser = await new User({
           name: req.body.name,
-          phone: req.body.phonenumber,
+          phone: req.body.phone,
           email: req.body.email,
           username: req.body.username,
           password: hash,
@@ -19,7 +20,7 @@ const register = async (req, res, next) => {
           gender: req.body.gender ? req.body.gender : "",
         });
         await newUser.save();
-        res.redirect("/login");
+        res.status(200).json({message: "User Registered Successfully"})
       });
     });
   } catch (err) {
@@ -34,10 +35,15 @@ const login = async (req, res, next) => {
       username: req.body.username,
     });
     if (!user) {
-      return next(createError(404, "User not found!"));
+      // return next(createError(404, "User not found!"));
+      return res
+        .status(404)
+        .json({message: "User not found!"})
     }
     if (user.blocked) {
-      return next(createError(404, "User Blocked"));
+      return res
+        .status(404)
+        .json({message: "User Blocked!"})
     }
     const isPasswordCorrect = await bcrypt.compare(
       req.body.password,
@@ -45,7 +51,9 @@ const login = async (req, res, next) => {
     );
 
     if (!isPasswordCorrect) {
-      return next(createError(400, "Wrong Password! or Username"));
+      return res
+      .status(404)
+      .json({message: "Password Incorect!"});
     }
 
     const { password, _id, ...otherDetails } = user._doc;
@@ -69,13 +77,9 @@ const login = async (req, res, next) => {
     session.gender = user.gender;
     session._id = user._id;
     session.blocked = user.blocked;
-    console.log(user.following);
-    console.log(user.followers);
-    console.log(user.following.length);
-    console.log(user.followers.length);
     session.followers = user.followers;
     session.following = user.following;
-    res.redirect("/");
+    res.status(200).send({message: "Status 200! User verified!"});
   } catch (err) {
     next(err);
   }
