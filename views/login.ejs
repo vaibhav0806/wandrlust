@@ -100,7 +100,7 @@ signInButton.addEventListener('click', () =>
                 }
                 if (this.readyState === 4 && this.status >= 400) {
                     const responseText = JSON.parse(this.responseText)
-                    document.getElementById("alert-zone").innerHTML = responseText.message
+                    alert(responseText.message);
                 }
             }
 
@@ -125,7 +125,7 @@ signInButton.addEventListener('click', () =>
                 if (this.readyState === 4 && this.status >= 400) {
                     console.log("Error?");
                     const responseText = JSON.parse(this.responseText)
-                    document.getElementById("alert-zone").innerHTML = responseText.message
+                    alert(responseText.message);
                 }
             }
 
